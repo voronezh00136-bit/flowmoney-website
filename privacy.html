@@ -5,322 +5,223 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Privacy Policy — FlowMoney</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root {
-  --ink:    #0a0912;
-  --ink2:   #12101f;
-  --ink3:   #1c1a2e;
-  --violet: #7857ff;
-  --violet-lt: #a690ff;
-  --emerald: #00d4aa;
-  --smoke:  #eae8f5;
-  --fog:    #7a7890;
-  --dim:    #3a3850;
-  --card:   rgba(255,255,255,0.04);
-  --line:   rgba(255,255,255,0.07);
+:root{
+  --bg:#0e0b16; --bg2:#16112a; --bg3:#1e1838;
+  --card:#1c1630; --card2:#231e3d;
+  --v:#7c5cfc; --v2:#a78bfa; --v3:#c4b5fd;
+  --g:#00d4a8; --g2:#34d399;
+  --amber:#fbbf24; --rose:#f87171;
+  --text:#f0ecff; --smoke:#b8b0d8; --fog:#7068a0; --dim:#3d3560;
+  --line:rgba(255,255,255,0.07);
+  --r:20px;
 }
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;overflow-x:hidden;line-height:1.65;}
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 16px; }
-body {
-  background: var(--ink);
-  color: var(--smoke);
-  font-family: 'Geist', system-ui, sans-serif;
-  line-height: 1.7;
-  overflow-x: hidden;
-}
-a { text-decoration: none; color: var(--violet-lt); }
-a:hover { color: var(--violet); }
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;opacity:.35;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");}
 
 /* NAV */
-nav {
-  position: sticky; top: 0; z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 40px;
-  height: 64px;
-  background: rgba(10,9,18,0.85);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--line);
-}
-.nav-brand {
-  display: flex; align-items: center; gap: 10px;
-  font-size: 17px; font-weight: 600; color: var(--smoke);
-  text-decoration: none;
-}
-.nav-logo-mark {
-  width: 30px; height: 30px;
-  background: linear-gradient(135deg, var(--violet) 0%, #a040ff 100%);
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; color: #fff; font-weight: 700;
-}
-.nav-back {
-  font-size: 14px; color: var(--fog);
-  display: flex; align-items: center; gap: 6px;
-  transition: color 0.2s;
-}
-.nav-back:hover { color: var(--smoke); }
-.nav-back svg { width: 16px; height: 16px; }
+nav{position:fixed;top:0;left:0;right:0;z-index:500;
+  padding:16px 48px;display:flex;align-items:center;justify-content:space-between;
+  background:rgba(14,11,22,0.85);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--line);}
+.logo{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:700;
+  color:var(--text);text-decoration:none;letter-spacing:-.3px;}
+.logo-mark{width:34px;height:34px;border-radius:10px;
+  background:linear-gradient(135deg,var(--v),#a040ff);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:#fff;font-weight:800;}
+.nav-back{display:flex;align-items:center;gap:6px;
+  font-size:14px;color:var(--fog);text-decoration:none;
+  transition:color .2s;}
+.nav-back:hover{color:var(--text);}
 
 /* HERO */
-.hero {
-  padding: 80px 40px 60px;
-  max-width: 820px;
-  margin: 0 auto;
-  border-bottom: 1px solid var(--line);
-}
-.hero-badge {
-  display: inline-block;
-  background: rgba(120,87,255,0.12);
-  border: 1px solid rgba(120,87,255,0.3);
-  border-radius: 20px;
-  padding: 6px 16px;
-  font-size: 12px; font-weight: 600;
-  color: var(--violet-lt);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 24px;
-}
-.hero h1 {
-  font-family: 'Instrument Serif', Georgia, serif;
-  font-size: clamp(32px, 5vw, 52px);
-  font-weight: 400;
-  line-height: 1.15;
-  color: var(--smoke);
-  margin-bottom: 16px;
-}
-.hero-meta {
-  font-size: 14px;
-  color: var(--fog);
-}
+.hero{padding:140px 48px 72px;max-width:860px;margin:0 auto;
+  border-bottom:1px solid var(--line);}
+.badge{display:inline-block;
+  background:rgba(124,92,252,0.12);border:1px solid rgba(124,92,252,0.3);
+  border-radius:30px;padding:5px 16px;font-size:12px;font-weight:600;
+  color:var(--v2);letter-spacing:.08em;text-transform:uppercase;margin-bottom:24px;}
+.hero h1{font-size:clamp(32px,5vw,54px);font-weight:800;
+  background:linear-gradient(135deg,#fff 30%,var(--v3));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;margin-bottom:14px;letter-spacing:-.5px;}
+.hero-meta{font-size:14px;color:var(--fog);}
 
 /* CONTENT */
-.content {
-  max-width: 820px;
-  margin: 0 auto;
-  padding: 60px 40px 100px;
-}
-.content section {
-  margin-bottom: 52px;
-}
-.content h2 {
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--smoke);
-  margin-bottom: 16px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--line);
-}
-.content p {
-  font-size: 15px;
-  color: #b8b6cc;
-  margin-bottom: 14px;
-}
-.content ul {
-  list-style: none;
-  margin-bottom: 14px;
-}
-.content ul li {
-  font-size: 15px;
-  color: #b8b6cc;
-  padding: 5px 0 5px 20px;
-  position: relative;
-}
-.content ul li::before {
-  content: '·';
-  position: absolute; left: 6px;
-  color: var(--violet-lt);
-  font-size: 18px; line-height: 1.1;
-}
-.highlight-box {
-  background: rgba(120,87,255,0.07);
-  border: 1px solid rgba(120,87,255,0.2);
-  border-radius: 14px;
-  padding: 20px 24px;
-  margin-bottom: 28px;
-}
-.highlight-box p {
-  margin: 0;
-  font-size: 14px;
-  color: var(--violet-lt);
-}
-strong { color: var(--smoke); font-weight: 600; }
-.contact-link {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(120,87,255,0.12);
-  border: 1px solid rgba(120,87,255,0.3);
-  border-radius: 10px;
-  padding: 12px 20px;
-  font-size: 14px; font-weight: 500;
-  color: var(--violet-lt);
-  transition: background 0.2s, border-color 0.2s;
-  margin-top: 8px;
-}
-.contact-link:hover {
-  background: rgba(120,87,255,0.2);
-  border-color: rgba(120,87,255,0.5);
-  color: #fff;
-}
+.wrap{max-width:860px;margin:0 auto;padding:64px 48px 100px;}
+.callout{background:rgba(124,92,252,0.08);border:1px solid rgba(124,92,252,0.2);
+  border-radius:16px;padding:20px 24px;margin-bottom:40px;}
+.callout p{font-size:15px;color:var(--v2);margin:0;}
+section{margin-bottom:52px;}
+h2{font-size:20px;font-weight:700;color:var(--text);
+  margin-bottom:16px;padding-bottom:10px;
+  border-bottom:1px solid var(--line);}
+p{font-size:15px;color:var(--smoke);margin-bottom:14px;}
+ul{list-style:none;margin-bottom:14px;}
+ul li{font-size:15px;color:var(--smoke);padding:5px 0 5px 20px;position:relative;}
+ul li::before{content:'·';position:absolute;left:6px;color:var(--v2);font-size:18px;line-height:1.1;}
+strong{color:var(--text);font-weight:600;}
+a{color:var(--v2);text-decoration:none;}
+a:hover{color:var(--v3);}
+.contact-btn{display:inline-flex;align-items:center;gap:8px;
+  background:rgba(124,92,252,0.12);border:1px solid rgba(124,92,252,0.3);
+  border-radius:12px;padding:12px 22px;font-size:14px;font-weight:600;
+  color:var(--v2);text-decoration:none;transition:background .2s,border-color .2s;margin-top:6px;}
+.contact-btn:hover{background:rgba(124,92,252,0.22);border-color:rgba(124,92,252,0.5);color:#fff;}
 
 /* FOOTER */
-footer {
-  border-top: 1px solid var(--line);
-  padding: 32px 40px;
-  text-align: center;
-  color: var(--fog);
-  font-size: 13px;
-}
-footer a { color: var(--fog); }
-footer a:hover { color: var(--smoke); }
+footer{padding:40px 48px;border-top:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.ft-copy{font-size:13px;color:var(--fog);}
+.ft-links{display:flex;gap:20px;}
+.ft-links a{font-size:13px;color:var(--fog);transition:color .2s;}
+.ft-links a:hover{color:var(--text);}
 
-@media (max-width: 640px) {
-  nav { padding: 0 20px; }
-  .hero { padding: 60px 20px 40px; }
-  .content { padding: 40px 20px 80px; }
-  footer { padding: 24px 20px; }
+@media(max-width:640px){
+  nav{padding:14px 20px;}
+  .hero{padding:110px 20px 52px;}
+  .wrap{padding:40px 20px 80px;}
+  footer{padding:28px 20px;flex-direction:column;align-items:flex-start;}
 }
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="index.html" class="nav-brand">
-    <div class="nav-logo-mark">∞</div>
+  <a href="index.html" class="logo">
+    <div class="logo-mark">∞</div>
     FlowMoney
   </a>
   <a href="index.html" class="nav-back">
-    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-      <path d="M10 12L6 8l4-4"/>
-    </svg>
-    Back to home
+    ← Back to home
   </a>
 </nav>
 
 <div class="hero">
-  <div class="hero-badge">Legal</div>
+  <div class="badge">Legal</div>
   <h1>Privacy Policy</h1>
   <p class="hero-meta">Last updated: March 2026 &nbsp;·&nbsp; Effective: March 1, 2026</p>
 </div>
 
-<div class="content">
+<div class="wrap">
 
-  <div class="highlight-box">
-    <p><strong>Short version:</strong> FlowMoney helps you track your money — not sell your data. We don't sell or share your personal information with advertisers. Ever.</p>
+  <div class="callout">
+    <p><strong>The short version:</strong> FlowMoney helps you track your money — not sell your data. We don't sell or share your personal information with advertisers. Ever.</p>
   </div>
 
   <section>
     <h2>1. Who We Are</h2>
-    <p>FlowMoney ("we," "us," or "our") is a personal finance application designed for gig workers and self-employed individuals in the United States. This Privacy Policy explains how we collect, use, and protect your information when you use our mobile application ("App").</p>
-    <p>If you have questions about this policy, contact us at <a href="mailto:privacy@flowmoney.app">privacy@flowmoney.app</a>.</p>
+    <p>FlowMoney ("we," "us," or "our") is a personal finance app for gig workers and self-employed people in the United States. This Privacy Policy explains how we collect, use, and protect your information when you use our mobile application.</p>
+    <p>Questions? Email us at <a href="mailto:privacy@flowmoney.app">privacy@flowmoney.app</a>.</p>
   </section>
 
   <section>
     <h2>2. Information We Collect</h2>
     <p><strong>Information you provide directly:</strong></p>
     <ul>
-      <li>Account information: email address, display name</li>
+      <li>Account info: email address, display name</li>
       <li>Financial profile: average monthly income, work type (Uber, freelance, etc.), US state of residence</li>
-      <li>Manual transactions: cash income and expense entries you add yourself</li>
+      <li>Manual transactions: cash income and expenses you enter yourself</li>
       <li>Goals: savings goals and deadlines you set</li>
-      <li>Feedback: responses to in-app surveys you choose to complete</li>
+      <li>Feedback: in-app survey responses you choose to submit</li>
     </ul>
-    <p><strong>Information collected automatically:</strong></p>
+    <p><strong>Collected automatically:</strong></p>
     <ul>
-      <li>App usage analytics: which screens you visit, feature interactions (anonymized)</li>
+      <li>App usage analytics: screens visited, feature interactions (anonymized)</li>
       <li>Crash reports and error logs (no financial data included)</li>
-      <li>Device type, OS version, and app version for compatibility purposes</li>
+      <li>Device type, OS version, app version (for compatibility)</li>
     </ul>
     <p><strong>Bank connection data (optional):</strong></p>
-    <p>If you choose to connect a bank account via Teller, we receive read-only transaction data from your financial institution. We do not store your bank credentials. Bank data is processed to display spending summaries and is never sold or shared with third parties.</p>
+    <p>If you connect a bank account via Teller, we receive read-only transaction data. We never store your bank credentials. Bank data is used only to display your spending summary and is never sold or shared.</p>
   </section>
 
   <section>
     <h2>3. How We Use Your Information</h2>
     <ul>
-      <li>To provide and personalize the App (income tracking, tax estimates, budget insights)</li>
+      <li>To provide and personalize the app (income tracking, tax estimates, budget insights)</li>
       <li>To calculate estimated self-employment taxes based on your state and income</li>
       <li>To generate AI-powered financial insights (FlowAI feature)</li>
-      <li>To send optional weekly financial summaries and reminders (push notifications)</li>
-      <li>To improve the App based on aggregated, anonymized usage patterns</li>
+      <li>To send optional weekly summaries and reminders (push notifications)</li>
+      <li>To improve the app based on aggregated, anonymized usage patterns</li>
       <li>To respond to your support requests</li>
     </ul>
-    <p>We do <strong>not</strong> use your financial data for advertising targeting, credit scoring, or any purpose not listed above.</p>
+    <p>We do <strong>not</strong> use your financial data for advertising, credit scoring, or any other purpose not listed above.</p>
   </section>
 
   <section>
     <h2>4. Data Storage and Security</h2>
-    <p>Your data is stored securely using <strong>Supabase</strong> (PostgreSQL), hosted on AWS infrastructure with encryption at rest and in transit (TLS 1.2+). Financial profile data and transaction summaries are stored server-side to enable syncing across devices.</p>
-    <p>Manual cash transactions and certain preferences are stored locally on your device using AsyncStorage and are not transmitted unless you are signed in.</p>
-    <p>We implement industry-standard security practices, but no system is 100% secure. If you discover a security vulnerability, please report it to <a href="mailto:security@flowmoney.app">security@flowmoney.app</a>.</p>
+    <p>Your data is stored securely using <strong>Supabase</strong> (PostgreSQL on AWS) with encryption at rest and in transit (TLS 1.2+). Financial profile data is stored server-side to enable cross-device sync.</p>
+    <p>Manual cash transactions and certain preferences are stored locally on your device and are not transmitted unless you are signed in.</p>
+    <p>If you discover a security vulnerability, please report it to <a href="mailto:security@flowmoney.app">security@flowmoney.app</a>.</p>
   </section>
 
   <section>
     <h2>5. Third-Party Services</h2>
-    <p>We use the following third-party services, each subject to their own privacy policies:</p>
     <ul>
-      <li><strong>Supabase</strong> — database and authentication (<a href="https://supabase.com/privacy" target="_blank" rel="noopener">supabase.com/privacy</a>)</li>
-      <li><strong>Teller</strong> — optional bank account connection (<a href="https://teller.io/legal/privacy" target="_blank" rel="noopener">teller.io/legal/privacy</a>)</li>
-      <li><strong>RevenueCat</strong> — in-app subscription management (<a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">revenuecat.com/privacy</a>)</li>
-      <li><strong>Expo / React Native</strong> — mobile app framework</li>
+      <li><strong>Supabase</strong> — database and authentication · <a href="https://supabase.com/privacy" target="_blank" rel="noopener">supabase.com/privacy</a></li>
+      <li><strong>Teller</strong> — optional bank account connection · <a href="https://teller.io/legal/privacy" target="_blank" rel="noopener">teller.io/legal/privacy</a></li>
+      <li><strong>RevenueCat</strong> — subscription management · <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">revenuecat.com/privacy</a></li>
     </ul>
     <p>We do not use Google Analytics, Facebook Pixel, or any advertising networks.</p>
   </section>
 
   <section>
-    <h2>6. Tax Calculations — Important Disclaimer</h2>
-    <p>FlowMoney provides <strong>estimated</strong> tax calculations for informational purposes only. These estimates are based on 2025 IRS figures (Rev. Proc. 2024-40) and state rates from the Tax Foundation. They do not constitute professional tax advice.</p>
-    <p>Tax data provided by FlowMoney:</p>
+    <h2>6. Tax Calculations — Disclaimer</h2>
+    <p>FlowMoney provides <strong>estimated</strong> tax calculations for informational purposes only, based on 2025 IRS figures (Rev. Proc. 2024-40) and Tax Foundation state rates. This is not tax advice.</p>
     <ul>
-      <li>Assumes single filing status</li>
-      <li>Uses standard deduction ($15,000 for 2025)</li>
-      <li>Does not account for QBI deduction, credits, deductions, or prior-year payments</li>
+      <li>Assumes single filing status and the standard deduction ($15,000 for 2025)</li>
+      <li>Does not account for QBI deduction, credits, or prior-year payments</li>
       <li>Uses top marginal rate for progressive states (actual liability may be lower)</li>
     </ul>
-    <p>Always consult a licensed CPA or tax professional for your actual tax obligations.</p>
+    <p>Always consult a licensed CPA for your actual tax obligations.</p>
   </section>
 
   <section>
     <h2>7. Your Rights and Choices</h2>
-    <p>You have the right to:</p>
     <ul>
-      <li><strong>Access</strong> your personal data stored in FlowMoney</li>
-      <li><strong>Correct</strong> inaccurate profile information at any time in the app</li>
-      <li><strong>Delete</strong> your account and all associated data by contacting us</li>
-      <li><strong>Opt out</strong> of analytics tracking in Profile → Settings → Analytics</li>
-      <li><strong>Disconnect</strong> your bank account at any time from the Dashboard</li>
-      <li><strong>Export</strong> your data upon request (email us at privacy@flowmoney.app)</li>
+      <li><strong>Access</strong> — view your personal data stored in FlowMoney</li>
+      <li><strong>Correct</strong> — update profile info at any time in the app</li>
+      <li><strong>Delete</strong> — request full account deletion by emailing us</li>
+      <li><strong>Opt out of analytics</strong> — Profile → Settings → Analytics</li>
+      <li><strong>Disconnect bank</strong> — remove bank access at any time from the Dashboard</li>
+      <li><strong>Export</strong> — request a copy of your data at privacy@flowmoney.app</li>
     </ul>
-    <p>California residents have additional rights under CCPA. EU/UK residents may have rights under GDPR. Contact us to exercise any of these rights.</p>
+    <p>California residents have additional rights under CCPA. Contact us to exercise any of these rights.</p>
   </section>
 
   <section>
     <h2>8. Children's Privacy</h2>
-    <p>FlowMoney is not directed to children under 13. We do not knowingly collect personal information from children under 13. If you believe we have inadvertently collected such information, contact us immediately at <a href="mailto:privacy@flowmoney.app">privacy@flowmoney.app</a>.</p>
+    <p>FlowMoney is not directed to children under 13. We do not knowingly collect personal information from children under 13. If you believe we have collected such information, contact us immediately.</p>
   </section>
 
   <section>
     <h2>9. Changes to This Policy</h2>
-    <p>We may update this Privacy Policy from time to time. When we make significant changes, we will notify you in the App and update the "Last updated" date at the top of this page. Continued use of the App after changes constitutes acceptance of the revised policy.</p>
+    <p>We may update this policy from time to time. Significant changes will be communicated in the app and by updating the date at the top of this page. Continued use of the app after changes constitutes acceptance of the revised policy.</p>
   </section>
 
   <section>
     <h2>10. Contact Us</h2>
-    <p>For privacy-related questions, data requests, or concerns:</p>
-    <a href="mailto:privacy@flowmoney.app" class="contact-link">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-        <rect x="1" y="3" width="14" height="10" rx="2"/>
-        <path d="M1 5l7 5 7-5"/>
-      </svg>
-      privacy@flowmoney.app
+    <p>For privacy questions, data requests, or concerns:</p>
+    <a href="mailto:privacy@flowmoney.app" class="contact-btn">
+      ✉ privacy@flowmoney.app
     </a>
-    <p style="margin-top: 20px; font-size: 14px; color: var(--fog);">We aim to respond to all privacy inquiries within 5 business days.</p>
+    <p style="margin-top:20px;font-size:14px;color:var(--fog);">We respond to all privacy inquiries within 5 business days.</p>
   </section>
 
 </div>
 
 <footer>
-  <p>© 2026 FlowMoney. All rights reserved. &nbsp;·&nbsp; <a href="index.html">Home</a> &nbsp;·&nbsp; <a href="mailto:support@flowmoney.app">Support</a></p>
+  <div class="ft-copy">© 2026 FlowMoney. All rights reserved.</div>
+  <div class="ft-links">
+    <a href="index.html">Home</a>
+    <a href="mailto:support@flowmoney.app">Support</a>
+  </div>
 </footer>
 
 </body>

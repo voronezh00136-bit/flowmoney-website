@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — FlowMoney</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:    #0a0912;
+  --ink2:   #12101f;
+  --ink3:   #1c1a2e;
+  --violet: #7857ff;
+  --violet-lt: #a690ff;
+  --emerald: #00d4aa;
+  --smoke:  #eae8f5;
+  --fog:    #7a7890;
+  --dim:    #3a3850;
+  --card:   rgba(255,255,255,0.04);
+  --line:   rgba(255,255,255,0.07);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--ink);
+  color: var(--smoke);
+  font-family: 'Geist', system-ui, sans-serif;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: var(--violet-lt); }
+a:hover { color: var(--violet); }
+
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px;
+  height: 64px;
+  background: rgba(10,9,18,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 17px; font-weight: 600; color: var(--smoke);
+  text-decoration: none;
+}
+.nav-logo-mark {
+  width: 30px; height: 30px;
+  background: linear-gradient(135deg, var(--violet) 0%, #a040ff 100%);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; color: #fff; font-weight: 700;
+}
+.nav-back {
+  font-size: 14px; color: var(--fog);
+  display: flex; align-items: center; gap: 6px;
+  transition: color 0.2s;
+}
+.nav-back:hover { color: var(--smoke); }
+.nav-back svg { width: 16px; height: 16px; }
+
+/* HERO */
+.hero {
+  padding: 80px 40px 60px;
+  max-width: 820px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--line);
+}
+.hero-badge {
+  display: inline-block;
+  background: rgba(120,87,255,0.12);
+  border: 1px solid rgba(120,87,255,0.3);
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 12px; font-weight: 600;
+  color: var(--violet-lt);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--smoke);
+  margin-bottom: 16px;
+}
+.hero-meta {
+  font-size: 14px;
+  color: var(--fog);
+}
+
+/* CONTENT */
+.content {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 60px 40px 100px;
+}
+.content section {
+  margin-bottom: 52px;
+}
+.content h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--smoke);
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+.content p {
+  font-size: 15px;
+  color: #b8b6cc;
+  margin-bottom: 14px;
+}
+.content ul {
+  list-style: none;
+  margin-bottom: 14px;
+}
+.content ul li {
+  font-size: 15px;
+  color: #b8b6cc;
+  padding: 5px 0 5px 20px;
+  position: relative;
+}
+.content ul li::before {
+  content: '·';
+  position: absolute; left: 6px;
+  color: var(--violet-lt);
+  font-size: 18px; line-height: 1.1;
+}
+.highlight-box {
+  background: rgba(120,87,255,0.07);
+  border: 1px solid rgba(120,87,255,0.2);
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin-bottom: 28px;
+}
+.highlight-box p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--violet-lt);
+}
+strong { color: var(--smoke); font-weight: 600; }
+.contact-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(120,87,255,0.12);
+  border: 1px solid rgba(120,87,255,0.3);
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-size: 14px; font-weight: 500;
+  color: var(--violet-lt);
+  transition: background 0.2s, border-color 0.2s;
+  margin-top: 8px;
+}
+.contact-link:hover {
+  background: rgba(120,87,255,0.2);
+  border-color: rgba(120,87,255,0.5);
+  color: #fff;
+}
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--line);
+  padding: 32px 40px;
+  text-align: center;
+  color: var(--fog);
+  font-size: 13px;
+}
+footer a { color: var(--fog); }
+footer a:hover { color: var(--smoke); }
+
+@media (max-width: 640px) {
+  nav { padding: 0 20px; }
+  .hero { padding: 60px 20px 40px; }
+  .content { padding: 40px 20px 80px; }
+  footer { padding: 24px 20px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <div class="nav-logo-mark">∞</div>
+    FlowMoney
+  </a>
+  <a href="index.html" class="nav-back">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M10 12L6 8l4-4"/>
+    </svg>
+    Back to home
+  </a>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">Legal</div>
+  <h1>Privacy Policy</h1>
+  <p class="hero-meta">Last updated: March 2026 &nbsp;·&nbsp; Effective: March 1, 2026</p>
+</div>
+
+<div class="content">
+
+  <div class="highlight-box">
+    <p><strong>Short version:</strong> FlowMoney helps you track your money — not sell your data. We don't sell or share your personal information with advertisers. Ever.</p>
+  </div>
+
+  <section>
+    <h2>1. Who We Are</h2>
+    <p>FlowMoney ("we," "us," or "our") is a personal finance application designed for gig workers and self-employed individuals in the United States. This Privacy Policy explains how we collect, use, and protect your information when you use our mobile application ("App").</p>
+    <p>If you have questions about this policy, contact us at <a href="mailto:privacy@flowmoney.app">privacy@flowmoney.app</a>.</p>
+  </section>
+
+  <section>
+    <h2>2. Information We Collect</h2>
+    <p><strong>Information you provide directly:</strong></p>
+    <ul>
+      <li>Account information: email address, display name</li>
+      <li>Financial profile: average monthly income, work type (Uber, freelance, etc.), US state of residence</li>
+      <li>Manual transactions: cash income and expense entries you add yourself</li>
+      <li>Goals: savings goals and deadlines you set</li>
+      <li>Feedback: responses to in-app surveys you choose to complete</li>
+    </ul>
+    <p><strong>Information collected automatically:</strong></p>
+    <ul>
+      <li>App usage analytics: which screens you visit, feature interactions (anonymized)</li>
+      <li>Crash reports and error logs (no financial data included)</li>
+      <li>Device type, OS version, and app version for compatibility purposes</li>
+    </ul>
+    <p><strong>Bank connection data (optional):</strong></p>
+    <p>If you choose to connect a bank account via Teller, we receive read-only transaction data from your financial institution. We do not store your bank credentials. Bank data is processed to display spending summaries and is never sold or shared with third parties.</p>
+  </section>
+
+  <section>
+    <h2>3. How We Use Your Information</h2>
+    <ul>
+      <li>To provide and personalize the App (income tracking, tax estimates, budget insights)</li>
+      <li>To calculate estimated self-employment taxes based on your state and income</li>
+      <li>To generate AI-powered financial insights (FlowAI feature)</li>
+      <li>To send optional weekly financial summaries and reminders (push notifications)</li>
+      <li>To improve the App based on aggregated, anonymized usage patterns</li>
+      <li>To respond to your support requests</li>
+    </ul>
+    <p>We do <strong>not</strong> use your financial data for advertising targeting, credit scoring, or any purpose not listed above.</p>
+  </section>
+
+  <section>
+    <h2>4. Data Storage and Security</h2>
+    <p>Your data is stored securely using <strong>Supabase</strong> (PostgreSQL), hosted on AWS infrastructure with encryption at rest and in transit (TLS 1.2+). Financial profile data and transaction summaries are stored server-side to enable syncing across devices.</p>
+    <p>Manual cash transactions and certain preferences are stored locally on your device using AsyncStorage and are not transmitted unless you are signed in.</p>
+    <p>We implement industry-standard security practices, but no system is 100% secure. If you discover a security vulnerability, please report it to <a href="mailto:security@flowmoney.app">security@flowmoney.app</a>.</p>
+  </section>
+
+  <section>
+    <h2>5. Third-Party Services</h2>
+    <p>We use the following third-party services, each subject to their own privacy policies:</p>
+    <ul>
+      <li><strong>Supabase</strong> — database and authentication (<a href="https://supabase.com/privacy" target="_blank" rel="noopener">supabase.com/privacy</a>)</li>
+      <li><strong>Teller</strong> — optional bank account connection (<a href="https://teller.io/legal/privacy" target="_blank" rel="noopener">teller.io/legal/privacy</a>)</li>
+      <li><strong>RevenueCat</strong> — in-app subscription management (<a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">revenuecat.com/privacy</a>)</li>
+      <li><strong>Expo / React Native</strong> — mobile app framework</li>
+    </ul>
+    <p>We do not use Google Analytics, Facebook Pixel, or any advertising networks.</p>
+  </section>
+
+  <section>
+    <h2>6. Tax Calculations — Important Disclaimer</h2>
+    <p>FlowMoney provides <strong>estimated</strong> tax calculations for informational purposes only. These estimates are based on 2025 IRS figures (Rev. Proc. 2024-40) and state rates from the Tax Foundation. They do not constitute professional tax advice.</p>
+    <p>Tax data provided by FlowMoney:</p>
+    <ul>
+      <li>Assumes single filing status</li>
+      <li>Uses standard deduction ($15,000 for 2025)</li>
+      <li>Does not account for QBI deduction, credits, deductions, or prior-year payments</li>
+      <li>Uses top marginal rate for progressive states (actual liability may be lower)</li>
+    </ul>
+    <p>Always consult a licensed CPA or tax professional for your actual tax obligations.</p>
+  </section>
+
+  <section>
+    <h2>7. Your Rights and Choices</h2>
+    <p>You have the right to:</p>
+    <ul>
+      <li><strong>Access</strong> your personal data stored in FlowMoney</li>
+      <li><strong>Correct</strong> inaccurate profile information at any time in the app</li>
+      <li><strong>Delete</strong> your account and all associated data by contacting us</li>
+      <li><strong>Opt out</strong> of analytics tracking in Profile → Settings → Analytics</li>
+      <li><strong>Disconnect</strong> your bank account at any time from the Dashboard</li>
+      <li><strong>Export</strong> your data upon request (email us at privacy@flowmoney.app)</li>
+    </ul>
+    <p>California residents have additional rights under CCPA. EU/UK residents may have rights under GDPR. Contact us to exercise any of these rights.</p>
+  </section>
+
+  <section>
+    <h2>8. Children's Privacy</h2>
+    <p>FlowMoney is not directed to children under 13. We do not knowingly collect personal information from children under 13. If you believe we have inadvertently collected such information, contact us immediately at <a href="mailto:privacy@flowmoney.app">privacy@flowmoney.app</a>.</p>
+  </section>
+
+  <section>
+    <h2>9. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. When we make significant changes, we will notify you in the App and update the "Last updated" date at the top of this page. Continued use of the App after changes constitutes acceptance of the revised policy.</p>
+  </section>
+
+  <section>
+    <h2>10. Contact Us</h2>
+    <p>For privacy-related questions, data requests, or concerns:</p>
+    <a href="mailto:privacy@flowmoney.app" class="contact-link">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="1" y="3" width="14" height="10" rx="2"/>
+        <path d="M1 5l7 5 7-5"/>
+      </svg>
+      privacy@flowmoney.app
+    </a>
+    <p style="margin-top: 20px; font-size: 14px; color: var(--fog);">We aim to respond to all privacy inquiries within 5 business days.</p>
+  </section>
+
+</div>
+
+<footer>
+  <p>© 2026 FlowMoney. All rights reserved. &nbsp;·&nbsp; <a href="index.html">Home</a> &nbsp;·&nbsp; <a href="mailto:support@flowmoney.app">Support</a></p>
+</footer>
+
+</body>
+</html>

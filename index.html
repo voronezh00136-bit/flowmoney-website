@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlowMoney — Stop guessing. Start knowing.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════
+   DESIGN TOKENS
+══════════════════════════════════════ */
+:root {
+  --ink:    #0a0912;
+  --ink2:   #12101f;
+  --ink3:   #1c1a2e;
+  --violet: #7857ff;
+  --violet-lt: #a690ff;
+  --emerald: #00d4aa;
+  --gold:   #f0a500;
+  --rose:   #ff4f6e;
+  --smoke:  #eae8f5;
+  --fog:    #7a7890;
+  --dim:    #3a3850;
+  --card:   rgba(255,255,255,0.04);
+  --line:   rgba(255,255,255,0.07);
+  --glow:   rgba(120,87,255,0.18);
+}
+
+/* ══════════════════════════════════════
+   RESET + BASE
+══════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--ink);
+  color: var(--smoke);
+  font-family: 'Geist', system-ui, sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+
+/* ══════════════════════════════════════
+   ANIMATED GRAIN OVERLAY
+══════════════════════════════════════ */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  animation: grain 0.4s steps(3) infinite;
+}
+@keyframes grain {
+  0%   { transform: translate(0,0); }
+  25%  { transform: translate(-1%,-1%); }
+  50%  { transform: translate(1%,0.5%); }
+  75%  { transform: translate(-0.5%,1%); }
+  100% { transform: translate(0,0); }
+}
+
+/* ══════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 52px;
+  height: 68px;
+  background: rgba(10,9,18,0.75);
+  backdrop-filter: blur(28px) saturate(180%);
+  border-bottom: 1px solid var(--line);
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 11px;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 22px; letter-spacing: -0.3px;
+}
+.nav-logo-mark {
+  position: relative;
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--violet), var(--emerald));
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Geist', sans-serif;
+  font-weight: 700; font-size: 16px; color: #fff;
+  box-shadow: 0 0 20px rgba(120,87,255,0.4);
+}
+.nav-links {
+  display: flex; gap: 36px; list-style: none;
+}
+.nav-links a {
+  font-size: 13.5px; font-weight: 400; color: var(--fog);
+  letter-spacing: 0.01em;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--smoke); }
+.nav-pill {
+  background: var(--violet);
+  color: #fff;
+  padding: 9px 22px;
+  border-radius: 99px;
+  font-size: 13.5px; font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: all 0.22s;
+  box-shadow: 0 4px 24px rgba(120,87,255,0.35);
+}
+.nav-pill:hover {
+  background: var(--violet-lt);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 32px rgba(120,87,255,0.5);
+}
+
+/* ══════════════════════════════════════
+   HERO
+══════════════════════════════════════ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 140px 52px 100px;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Orbital glow rings */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.orb-1 {
+  width: 900px; height: 900px;
+  background: radial-gradient(circle at 50%, rgba(120,87,255,0.12) 0%, transparent 65%);
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  animation: breathe 6s ease-in-out infinite;
+}
+.orb-2 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle at 50%, rgba(0,212,170,0.09) 0%, transparent 65%);
+  top: 20%; right: -100px;
+  animation: float-a 9s ease-in-out infinite;
+}
+.orb-3 {
+  width: 380px; height: 380px;
+  background: radial-gradient(circle at 50%, rgba(240,165,0,0.07) 0%, transparent 65%);
+  bottom: 10%; left: -60px;
+  animation: float-b 11s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%,100% { transform: translate(-50%,-50%) scale(1); opacity:1; }
+  50%      { transform: translate(-50%,-50%) scale(1.08); opacity:0.75; }
+}
+@keyframes float-a {
+  0%,100% { transform: translate(0,0); }
+  50%     { transform: translate(-30px, 30px); }
+}
+@keyframes float-b {
+  0%,100% { transform: translate(0,0); }
+  50%     { transform: translate(20px,-25px); }
+}
+
+/* Grid lines in background */
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 75%);
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative; z-index: 2;
+  max-width: 860px;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(120,87,255,0.12);
+  border: 1px solid rgba(120,87,255,0.3);
+  border-radius: 99px;
+  padding: 6px 18px;
+  font-size: 12.5px; font-weight: 500; color: var(--violet-lt);
+  letter-spacing: 0.03em;
+  margin-bottom: 36px;
+  animation: rise 0.7s cubic-bezier(0.22,1,0.36,1) both;
+}
+.live-dot {
+  width: 6px; height: 6px;
+  background: var(--emerald);
+  border-radius: 50%;
+  animation: livepulse 2s ease-in-out infinite;
+}
+@keyframes livepulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(0,212,170,0.6); }
+  50%     { box-shadow: 0 0 0 5px rgba(0,212,170,0); }
+}
+
+.hero-h1 {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(48px, 7.5vw, 92px);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -2px;
+  margin-bottom: 28px;
+  animation: rise 0.7s cubic-bezier(0.22,1,0.36,1) 0.1s both;
+}
+.hero-h1 em {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--violet-lt), var(--emerald));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: 19px; font-weight: 300; color: var(--fog);
+  max-width: 580px; margin: 0 auto 52px;
+  line-height: 1.72;
+  animation: rise 0.7s cubic-bezier(0.22,1,0.36,1) 0.2s both;
+}
+.hero-sub strong { color: var(--smoke); font-weight: 500; }
+
+.hero-actions {
+  display: flex; align-items: center; justify-content: center;
+  gap: 14px; flex-wrap: wrap;
+  animation: rise 0.7s cubic-bezier(0.22,1,0.36,1) 0.3s both;
+}
+.btn-hero {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: var(--violet);
+  color: #fff; font-size: 15.5px; font-weight: 600;
+  padding: 16px 36px; border-radius: 14px;
+  box-shadow: 0 8px 40px rgba(120,87,255,0.4);
+  transition: all 0.25s;
+}
+.btn-hero:hover {
+  background: #8d6fff;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 56px rgba(120,87,255,0.55);
+}
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  color: var(--smoke); font-size: 15.5px; font-weight: 500;
+  padding: 16px 36px; border-radius: 14px;
+  transition: all 0.22s;
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.12); }
+
+.hero-for {
+  margin-top: 60px;
+  animation: rise 0.7s cubic-bezier(0.22,1,0.36,1) 0.4s both;
+}
+.hero-for-label {
+  font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--dim); margin-bottom: 16px;
+}
+.hero-for-pills {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+}
+.pill {
+  font-size: 12.5px; font-weight: 400; color: var(--fog);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--line);
+  padding: 5px 15px; border-radius: 99px;
+  transition: all 0.2s;
+}
+.pill:hover { color: var(--smoke); border-color: rgba(255,255,255,0.15); }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ══════════════════════════════════════
+   MARQUEE STRIP
+══════════════════════════════════════ */
+.marquee-wrap {
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--ink2);
+  padding: 0;
+  white-space: nowrap;
+}
+.marquee-track {
+  display: inline-flex; gap: 0;
+  animation: marquee 28s linear infinite;
+}
+.marquee-track:hover { animation-play-state: paused; }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-item {
+  display: inline-flex; align-items: center;
+  padding: 14px 40px;
+  font-size: 13px; font-weight: 500;
+  color: var(--fog);
+  border-right: 1px solid var(--line);
+  letter-spacing: 0.02em;
+  gap: 10px;
+}
+.marquee-item .mi-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--violet); }
+
+/* ══════════════════════════════════════
+   STAT BAND
+══════════════════════════════════════ */
+.stat-band {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  border-bottom: 1px solid var(--line);
+}
+.stat-cell {
+  padding: 60px 52px;
+  border-right: 1px solid var(--line);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+.stat-cell:last-child { border-right: none; }
+.stat-cell:hover { background: rgba(255,255,255,0.02); }
+.stat-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 64px; font-weight: 400;
+  letter-spacing: -2px;
+  line-height: 1;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, var(--smoke), var(--fog));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.stat-num.v { background: linear-gradient(135deg, var(--violet-lt), var(--emerald)); -webkit-background-clip: text; background-clip: text; }
+.stat-label { font-size: 14px; color: var(--fog); font-weight: 400; }
+
+/* ══════════════════════════════════════
+   SHARED SECTION LAYOUT
+══════════════════════════════════════ */
+.s-wrap { max-width: 1240px; margin: 0 auto; padding: 130px 52px; }
+.s-wrap.dark-bg { background: var(--ink2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.s-wrap.full { max-width: none; }
+
+.eyebrow {
+  font-size: 11px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--violet-lt);
+  font-weight: 600; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.eyebrow::before {
+  content: '';
+  display: inline-block; width: 20px; height: 1px;
+  background: var(--violet);
+}
+
+.s-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(34px, 4vw, 58px);
+  font-weight: 400; letter-spacing: -1.5px;
+  line-height: 1.08; margin-bottom: 20px;
+}
+.s-sub {
+  font-size: 17px; color: var(--fog);
+  max-width: 520px; line-height: 1.75;
+  font-weight: 300;
+  margin-bottom: 72px;
+}
+
+/* ══════════════════════════════════════
+   PROBLEM CARDS
+══════════════════════════════════════ */
+.prob-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+.pc {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 36px 34px;
+  position: relative; overflow: hidden;
+  transition: all 0.3s;
+  cursor: default;
+}
+.pc::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--rose), transparent);
+  opacity: 0; transition: opacity 0.3s;
+}
+.pc:hover { border-color: rgba(255,79,110,0.25); transform: translateY(-5px); }
+.pc:hover::after { opacity: 1; }
+.pc-emoji { font-size: 38px; margin-bottom: 22px; display: block; }
+.pc-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 24px; letter-spacing: -0.5px;
+  margin-bottom: 12px;
+}
+.pc-body { font-size: 14.5px; color: var(--fog); line-height: 1.75; font-weight: 300; }
+
+/* ══════════════════════════════════════
+   FEATURE BENTO GRID
+══════════════════════════════════════ */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto;
+  gap: 14px;
+}
+.bc {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 38px;
+  position: relative; overflow: hidden;
+  transition: all 0.3s;
+}
+.bc:hover { border-color: rgba(120,87,255,0.3); transform: translateY(-4px); }
+.bc::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1.5px;
+  background: linear-gradient(90deg, var(--violet), var(--emerald), transparent);
+  opacity: 0; transition: opacity 0.3s;
+}
+.bc:hover::before { opacity: 1; }
+
+.bc.span4 { grid-column: span 4; }
+.bc.span2 { grid-column: span 2; }
+.bc.span3 { grid-column: span 3; }
+
+.bc-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 72px; font-weight: 400;
+  color: var(--violet);
+  opacity: 0.15;
+  line-height: 1; margin-bottom: 16px;
+  letter-spacing: -3px;
+}
+.bc-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 26px; letter-spacing: -0.5px;
+  margin-bottom: 12px; line-height: 1.15;
+}
+.bc-body { font-size: 14.5px; color: var(--fog); line-height: 1.75; font-weight: 300; max-width: 360px; }
+.bc-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 20px; }
+.bc-tag {
+  font-size: 11.5px; font-weight: 500;
+  background: rgba(120,87,255,0.12);
+  color: var(--violet-lt);
+  padding: 4px 12px; border-radius: 99px;
+  border: 1px solid rgba(120,87,255,0.2);
+}
+
+/* Live indicator inside feature card */
+.bc-visual {
+  position: absolute; right: 38px; top: 38px;
+  width: 130px;
+}
+
+/* ══════════════════════════════════════
+   APP SCREEN SHOWCASE
+══════════════════════════════════════ */
+.screens-scroll {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 18px;
+  margin-top: 72px;
+}
+.screen-tile {
+  border-radius: 24px; overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--ink3);
+  transition: all 0.35s;
+}
+.screen-tile:hover {
+  border-color: rgba(120,87,255,0.4);
+  transform: translateY(-10px);
+  box-shadow: 0 50px 100px rgba(0,0,0,0.5), 0 0 0 1px rgba(120,87,255,0.1);
+}
+.st-phone {
+  height: 280px;
+  background: linear-gradient(160deg, #111026 0%, #1a163a 100%);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px; position: relative; overflow: hidden;
+}
+.st-phone::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(10,9,18,0.8) 100%);
+}
+.st-info { padding: 22px 24px 26px; }
+.st-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 18px; margin-bottom: 6px; letter-spacing: -0.2px;
+}
+.st-desc { font-size: 13px; color: var(--fog); line-height: 1.6; font-weight: 300; }
+
+/* MOCK UI ELEMENTS */
+.m-wrap { width: 155px; position: relative; z-index: 1; }
+.m-header {
+  font-size: 8.5px; letter-spacing: 0.08em; color: rgba(255,255,255,0.3);
+  text-transform: uppercase; margin-bottom: 10px;
+}
+.m-big {
+  font-family: 'Instrument Serif', serif;
+  font-size: 32px; font-weight: 400;
+  color: var(--emerald);
+  line-height: 1; margin-bottom: 4px;
+}
+.m-sub { font-size: 9px; color: rgba(255,255,255,0.3); margin-bottom: 14px; }
+.m-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 10px 12px; margin-bottom: 7px;
+}
+.m-row { display: flex; justify-content: space-between; align-items: center; font-size: 8.5px; }
+.m-bar-wrap { height: 3px; background: rgba(255,255,255,0.07); border-radius: 2px; margin-top: 7px; overflow: hidden; }
+.m-bar-fill { height: 100%; border-radius: 2px; }
+.m-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+.m-label { color: rgba(255,255,255,0.4); }
+.m-val { font-weight: 600; }
+
+/* chat mock */
+.m-chat { width: 155px; position: relative; z-index: 1; }
+.m-bubble {
+  border-radius: 10px; padding: 9px 11px;
+  font-size: 8.5px; line-height: 1.5;
+  margin-bottom: 8px;
+}
+.m-bubble.user { background: rgba(120,87,255,0.2); color: var(--smoke); align-self: flex-end; border-bottom-right-radius: 2px; }
+.m-bubble.ai { background: rgba(0,212,170,0.1); color: #8dffd8; border-bottom-left-radius: 2px; }
+.m-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+.m-chip { font-size: 7.5px; background: rgba(120,87,255,0.15); color: var(--violet-lt); padding: 3px 8px; border-radius: 99px; }
+
+/* ══════════════════════════════════════
+   TESTIMONIALS
+══════════════════════════════════════ */
+.testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 72px; }
+.tcard {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 34px;
+  transition: all 0.3s;
+}
+.tcard:hover { border-color: rgba(120,87,255,0.25); transform: translateY(-4px); }
+.t-stars { display: flex; gap: 3px; margin-bottom: 18px; }
+.t-stars span { color: var(--gold); font-size: 14px; }
+.t-quote {
+  font-family: 'Instrument Serif', serif;
+  font-size: 18px; line-height: 1.65;
+  color: var(--smoke); margin-bottom: 24px;
+  font-style: italic; letter-spacing: -0.2px;
+}
+.t-author { display: flex; align-items: center; gap: 13px; }
+.t-avatar {
+  width: 42px; height: 42px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 15px; color: white;
+  flex-shrink: 0;
+}
+.t-name { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+.t-role { font-size: 12px; color: var(--fog); }
+
+/* ══════════════════════════════════════
+   COMPARISON TABLE
+══════════════════════════════════════ */
+.compare-box {
+  border: 1px solid var(--line);
+  border-radius: 22px; overflow: hidden;
+  margin-top: 72px;
+}
+.cmp-head {
+  display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr;
+  padding: 18px 36px;
+  background: rgba(255,255,255,0.025);
+  border-bottom: 1px solid var(--line);
+}
+.cmp-col { font-size: 13px; font-weight: 600; color: var(--fog); }
+.cmp-col.ours {
+  color: var(--violet-lt);
+  font-family: 'Instrument Serif', serif;
+  font-size: 16px; letter-spacing: -0.2px;
+}
+.cmp-row {
+  display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr;
+  padding: 16px 36px;
+  border-bottom: 1px solid var(--line);
+  align-items: center;
+  transition: background 0.2s;
+}
+.cmp-row:last-child { border: none; }
+.cmp-row:hover { background: rgba(255,255,255,0.02); }
+.cmp-feat { font-size: 14px; color: var(--smoke); }
+.ck { color: var(--emerald); font-size: 18px; font-weight: 700; }
+.cx { color: var(--dim); font-size: 20px; }
+.cmp-price-good { color: var(--emerald); font-weight: 700; font-size: 14px; }
+.cmp-price-bad  { color: var(--fog); font-size: 14px; }
+
+/* ══════════════════════════════════════
+   PRICING
+══════════════════════════════════════ */
+.price-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 72px; max-width: 860px; margin-left: auto; margin-right: auto; }
+.price-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 44px;
+  position: relative; overflow: hidden;
+  transition: all 0.3s;
+}
+.price-card.feat {
+  background: linear-gradient(160deg, rgba(120,87,255,0.1) 0%, var(--card) 60%);
+  border-color: rgba(120,87,255,0.4);
+}
+.price-card.feat:hover { box-shadow: 0 30px 80px rgba(120,87,255,0.2); }
+.price-badge {
+  position: absolute; top: 22px; right: 22px;
+  background: var(--violet);
+  color: white; font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 4px 11px; border-radius: 99px;
+}
+.price-tier { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fog); font-weight: 600; margin-bottom: 14px; }
+.price-amount {
+  font-family: 'Instrument Serif', serif;
+  font-size: 68px; font-weight: 400;
+  letter-spacing: -3px;
+  line-height: 1; margin-bottom: 6px;
+}
+.price-amount sup { font-size: 28px; vertical-align: super; margin-right: 2px; color: var(--fog); }
+.price-period { font-size: 13px; color: var(--fog); margin-bottom: 34px; }
+.price-list { list-style: none; margin-bottom: 34px; }
+.price-list li {
+  display: flex; align-items: center; gap: 11px;
+  font-size: 14px; padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+}
+.price-list li:last-child { border: none; }
+.pi-yes { color: var(--emerald); font-size: 15px; }
+.pi-no  { color: var(--dim); font-size: 15px; }
+.price-btn {
+  display: block; width: 100%;
+  padding: 15px; border-radius: 12px;
+  text-align: center; font-size: 15px; font-weight: 600;
+  transition: all 0.22s;
+}
+.price-btn.primary {
+  background: var(--violet); color: white;
+  box-shadow: 0 8px 30px rgba(120,87,255,0.35);
+}
+.price-btn.primary:hover {
+  background: #8d6fff;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 50px rgba(120,87,255,0.5);
+}
+.price-btn.secondary {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--line); color: var(--smoke);
+}
+.price-btn.secondary:hover { background: rgba(255,255,255,0.08); }
+
+/* ══════════════════════════════════════
+   FINAL CTA
+══════════════════════════════════════ */
+.cta-section {
+  position: relative; overflow: hidden;
+  padding: 180px 52px;
+  text-align: center;
+  border-top: 1px solid var(--line);
+}
+.cta-glow {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(120,87,255,0.14) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta-grid-lines {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 60% 80% at 50% 50%, black 0%, transparent 75%);
+  pointer-events: none;
+}
+.cta-inner { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; }
+.cta-h {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(40px, 5.5vw, 74px);
+  font-weight: 400; letter-spacing: -2px;
+  line-height: 1.05; margin-bottom: 24px;
+}
+.cta-h em { font-style: italic; color: var(--violet-lt); }
+.cta-sub { font-size: 18px; color: var(--fog); font-weight: 300; margin-bottom: 52px; line-height: 1.7; }
+.store-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.store-btn {
+  display: flex; align-items: center; gap: 14px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 15px 28px;
+  color: var(--smoke);
+  transition: all 0.22s;
+}
+.store-btn:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.14);
+  transform: translateY(-2px);
+}
+.store-ico { font-size: 30px; }
+.store-sm  { font-size: 10.5px; color: var(--fog); letter-spacing: 0.03em; }
+.store-lg  { font-size: 16.5px; font-weight: 700; }
+
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+footer {
+  background: var(--ink2);
+  border-top: 1px solid var(--line);
+  padding: 70px 52px 44px;
+}
+.ft-grid {
+  max-width: 1240px; margin: 0 auto;
+  display: grid; grid-template-columns: 2.2fr 1fr 1fr 1fr;
+  gap: 52px; margin-bottom: 52px;
+}
+.ft-brand-logo {
+  display: flex; align-items: center; gap: 11px;
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px; margin-bottom: 16px;
+}
+.ft-tagline { font-size: 13.5px; color: var(--fog); line-height: 1.7; max-width: 270px; font-weight: 300; }
+.ft-col-h { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); font-weight: 600; margin-bottom: 18px; }
+.ft-col-links { list-style: none; }
+.ft-col-links li { margin-bottom: 10px; }
+.ft-col-links a { font-size: 13.5px; color: var(--fog); transition: color 0.2s; font-weight: 300; }
+.ft-col-links a:hover { color: var(--smoke); }
+.ft-bottom {
+  max-width: 1240px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 32px; border-top: 1px solid var(--line);
+}
+.ft-copy { font-size: 12.5px; color: var(--dim); }
+.ft-legal { display: flex; gap: 22px; }
+.ft-legal a { font-size: 12.5px; color: var(--dim); transition: color 0.2s; }
+.ft-legal a:hover { color: var(--fog); }
+
+/* ══════════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════════ */
+.reveal {
+  opacity: 0; transform: translateY(36px);
+  transition: opacity 0.75s cubic-bezier(0.22,1,0.36,1),
+              transform 0.75s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media (max-width: 960px) {
+  .nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .s-wrap { padding: 90px 24px; }
+  .stat-band { grid-template-columns: 1fr; }
+  .stat-cell { border-right: none; border-bottom: 1px solid var(--line); }
+  .prob-row, .bento, .screens-scroll, .testi-grid, .price-cards { grid-template-columns: 1fr; }
+  .bc.span4, .bc.span2, .bc.span3 { grid-column: span 1; }
+  .cmp-head, .cmp-row { grid-template-columns: 2fr 1fr 1fr; }
+  .cmp-head .cmp-col:last-child, .cmp-row > *:last-child { display: none; }
+  .ft-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .hero { padding: 120px 24px 80px; }
+  .cta-section { padding: 120px 24px; }
+  footer { padding: 60px 24px 36px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════ NAVIGATION ════ -->
+<nav class="nav">
+  <a href="#" class="nav-brand">
+    <div class="nav-logo-mark">∞</div>
+    FlowMoney
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#app">App</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#compare">Compare</a></li>
+  </ul>
+  <a href="#download" class="nav-pill">Download Free →</a>
+</nav>
+
+<!-- ════ HERO ════ -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span class="live-dot"></span>
+      Built for 76 million gig workers across America
+    </div>
+
+    <h1 class="hero-h1">
+      Stop guessing.<br>
+      <em>Start knowing.</em>
+    </h1>
+
+    <p class="hero-sub">
+      <strong>Know what you can spend today.</strong> Never get blindsided by taxes.
+      FlowMoney is the financial app the gig economy has been waiting for.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#download" class="btn-hero">
+        Download Free
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </a>
+      <a href="#features" class="btn-ghost">
+        See how it works
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </a>
+    </div>
+
+    <div class="hero-for">
+      <p class="hero-for-label">Works with your platforms</p>
+      <div class="hero-for-pills">
+        <span class="pill">Uber & Lyft</span>
+        <span class="pill">DoorDash</span>
+        <span class="pill">Upwork</span>
+        <span class="pill">Airbnb</span>
+        <span class="pill">Fiverr</span>
+        <span class="pill">TaskRabbit</span>
+        <span class="pill">YouTube</span>
+        <span class="pill">+ 50 more</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ MARQUEE ════ -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <!-- repeated twice for seamless loop -->
+    <span class="marquee-item"><span class="mi-dot"></span> All 50 US states</span>
+    <span class="marquee-item"><span class="mi-dot"></span> AI financial advisor</span>
+    <span class="marquee-item"><span class="mi-dot"></span> No April tax surprises</span>
+    <span class="marquee-item"><span class="mi-dot"></span> iOS & Android</span>
+    <span class="marquee-item"><span class="mi-dot"></span> English · Español · Русский</span>
+    <span class="marquee-item"><span class="mi-dot"></span> Bank connection via Teller</span>
+    <span class="marquee-item"><span class="mi-dot"></span> Free to start</span>
+    <span class="marquee-item"><span class="mi-dot"></span> 50+ gig platforms</span>
+    <span class="marquee-item"><span class="mi-dot"></span> All 50 US states</span>
+    <span class="marquee-item"><span class="mi-dot"></span> AI financial advisor</span>
+    <span class="marquee-item"><span class="mi-dot"></span> No April tax surprises</span>
+    <span class="marquee-item"><span class="mi-dot"></span> iOS & Android</span>
+    <span class="marquee-item"><span class="mi-dot"></span> English · Español · Русский</span>
+    <span class="marquee-item"><span class="mi-dot"></span> Bank connection via Teller</span>
+    <span class="marquee-item"><span class="mi-dot"></span> Free to start</span>
+    <span class="marquee-item"><span class="mi-dot"></span> 50+ gig platforms</span>
+  </div>
+</div>
+
+<!-- ════ STATS ════ -->
+<div class="stat-band">
+  <div class="stat-cell reveal">
+    <div class="stat-num v">76M</div>
+    <div class="stat-label">Gig workers in the USA</div>
+  </div>
+  <div class="stat-cell reveal">
+    <div class="stat-num">$7,800</div>
+    <div class="stat-label">Average tax surprise in April</div>
+  </div>
+  <div class="stat-cell reveal">
+    <div class="stat-num v">Zero</div>
+    <div class="stat-label">Apps truly built for gig workers — until now</div>
+  </div>
+</div>
+
+<!-- ════ PROBLEM ════ -->
+<div class="s-wrap" id="problem">
+  <div class="reveal">
+    <div class="eyebrow">The problem</div>
+    <h2 class="s-title">The system wasn't<br>designed for you</h2>
+    <p class="s-sub">Every budgeting app, tax tool, and bank was built for people with a steady paycheck. Gig workers have been left behind. Until now.</p>
+  </div>
+  <div class="prob-row">
+    <div class="pc reveal">
+      <span class="pc-emoji">😰</span>
+      <h3 class="pc-title">The April tax shock</h3>
+      <p class="pc-body">You earned $60k last year. April comes — and you owe $9,000 you no longer have. No one told you how much to save. No app helped you prepare.</p>
+    </div>
+    <div class="pc reveal">
+      <span class="pc-emoji">🌫️</span>
+      <h3 class="pc-title">The financial fog</h3>
+      <p class="pc-body">January: $7,200. You spend it. February: $1,400. Panic. You never actually know how much is safe to spend today, after taxes and bills.</p>
+    </div>
+    <div class="pc reveal">
+      <span class="pc-emoji">🧠</span>
+      <h3 class="pc-title">No one to ask</h3>
+      <p class="pc-body">A CPA costs $300/hour. Financial advisors want $5k minimums. You're left googling at midnight: "how much should Uber drivers save for taxes?"</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════ FEATURES BENTO ════ -->
+<div class="s-wrap dark-bg full" id="features">
+  <div style="max-width:1240px;margin:0 auto;">
+    <div class="reveal">
+      <div class="eyebrow">The solution</div>
+      <h2 class="s-title">Everything you need.<br>Nothing you don't.</h2>
+      <p class="s-sub">Six focused screens. Plain language. Built around how gig workers actually think about money.</p>
+    </div>
+    <div class="bento">
+
+      <div class="bc span4 reveal">
+        <div class="bc-num">01</div>
+        <h3 class="bc-title">Know exactly what you can spend — today</h3>
+        <p class="bc-body">Every morning FlowMoney shows you one number: how much you can actually spend, after taxes and bills are already covered. No math, no guessing. Just the number your bank never shows you.</p>
+        <div class="bc-tags">
+          <span class="bc-tag">Daily calculation</span>
+          <span class="bc-tag">After-tax view</span>
+          <span class="bc-tag">All income sources</span>
+          <span class="bc-tag">Crisis mode</span>
+        </div>
+      </div>
+
+      <div class="bc span2 reveal">
+        <div class="bc-num">02</div>
+        <h3 class="bc-title">Taxes — handled automatically</h3>
+        <p class="bc-body">Your exact self-employment rate, for your state. All 50 included. Every deposit auto-calculates what to set aside.</p>
+        <div class="bc-tags">
+          <span class="bc-tag">All 50 states</span>
+          <span class="bc-tag">IRS deadlines</span>
+        </div>
+      </div>
+
+      <div class="bc span3 reveal">
+        <div class="bc-num">03</div>
+        <h3 class="bc-title">FlowAI — your personal money advisor</h3>
+        <p class="bc-body">Knows your income, state, and history. Ask: "what can I write off?", "am I saving enough?", "when do I need to pay taxes?" — real answers in plain English, 24/7.</p>
+        <div class="bc-tags">
+          <span class="bc-tag">Always available</span>
+          <span class="bc-tag">Knows your data</span>
+        </div>
+      </div>
+
+      <div class="bc span3 reveal">
+        <div class="bc-num">04</div>
+        <h3 class="bc-title">A budget built for irregular income</h3>
+        <p class="bc-body">Three buckets: Must Pay, Nice to Have, For My Future. Track spending. See when you're close. Designed for months when income fluctuates wildly.</p>
+      </div>
+
+      <div class="bc span2 reveal">
+        <div class="bc-num">05</div>
+        <h3 class="bc-title">Savings goals that stick</h3>
+        <p class="bc-body">Emergency fund. Tax reserve. New equipment. See progress weekly. Small steps that actually add up.</p>
+      </div>
+
+      <div class="bc span2 reveal">
+        <div class="bc-num">06</div>
+        <h3 class="bc-title">Three languages</h3>
+        <p class="bc-body">English, Spanish, Russian. Gig workers come from everywhere — FlowMoney speaks your language.</p>
+        <div class="bc-tags">
+          <span class="bc-tag">English</span>
+          <span class="bc-tag">Español</span>
+          <span class="bc-tag">Русский</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ════ APP SCREENS ════ -->
+<div class="s-wrap" id="app">
+  <div class="reveal">
+    <div class="eyebrow">The app</div>
+    <h2 class="s-title">Six screens.<br>Total clarity.</h2>
+    <p class="s-sub">Every screen answers exactly one question. Simple, focused, beautiful.</p>
+  </div>
+  <div class="screens-scroll">
+
+    <!-- Home -->
+    <div class="screen-tile reveal">
+      <div class="st-phone">
+        <div class="m-wrap">
+          <div class="m-header">You can spend today</div>
+          <div class="m-big">$247</div>
+          <div class="m-sub">After taxes & bills · Updated now</div>
+          <div class="m-card" style="background:rgba(0,212,170,0.08);border-color:rgba(0,212,170,0.18);">
+            <div class="m-row">
+              <span class="m-label">Tax reserve</span>
+              <span class="m-val" style="color:var(--gold);">$1,240</span>
+            </div>
+            <div class="m-bar-wrap" style="margin-top:8px;"><div class="m-bar-fill" style="width:62%;background:var(--gold);"></div></div>
+          </div>
+          <div class="m-card">
+            <div class="m-row" style="margin-bottom:4px;"><span><span class="m-dot" style="background:var(--violet);"></span><span class="m-label">Uber</span></span><span class="m-val" style="color:var(--emerald);">$1,840</span></div>
+            <div class="m-row" style="margin-bottom:4px;"><span><span class="m-dot" style="background:var(--emerald);"></span><span class="m-label">Upwork</span></span><span class="m-val" style="color:var(--emerald);">$960</span></div>
+            <div class="m-row"><span><span class="m-dot" style="background:var(--gold);"></span><span class="m-label">Airbnb</span></span><span class="m-val" style="color:var(--emerald);">$680</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="st-info">
+        <div class="st-title">Home</div>
+        <p class="st-desc">One number every morning. What you can actually spend today, after everything else is covered.</p>
+      </div>
+    </div>
+
+    <!-- FlowAI -->
+    <div class="screen-tile reveal">
+      <div class="st-phone">
+        <div class="m-chat">
+          <div class="m-header" style="margin-bottom:12px;">FlowAI</div>
+          <div class="m-bubble user">"How much should I save for taxes this month?"</div>
+          <div class="m-bubble ai">Based on your $4,800 income in Florida — set aside $1,056. That's 22%, right on track.</div>
+          <div class="m-bubble user" style="margin-top:2px;">"What can I write off as an Uber driver?"</div>
+          <div class="m-bubble ai">Mileage, phone, data plan, car maintenance, insurance. I estimate ~$3,200 in deductions for you.</div>
+          <div class="m-chips">
+            <span class="m-chip">How much can I spend?</span>
+            <span class="m-chip">When to pay taxes?</span>
+            <span class="m-chip">Am I on track?</span>
+          </div>
+        </div>
+      </div>
+      <div class="st-info">
+        <div class="st-title">FlowAI</div>
+        <p class="st-desc">Your personal AI advisor. Knows your numbers. Answers in plain English. Available 24/7.</p>
+      </div>
+    </div>
+
+    <!-- Budget -->
+    <div class="screen-tile reveal">
+      <div class="st-phone">
+        <div class="m-wrap">
+          <div class="m-header">Your Spending Plan</div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.5);margin-bottom:10px;">March · Looking good ✓</div>
+          <div class="m-card">
+            <div class="m-row"><span class="m-label">Must Pay</span><span class="m-val" style="color:var(--gold);">$2,370 / $2,400</span></div>
+            <div class="m-bar-wrap"><div class="m-bar-fill" style="width:98%;background:var(--gold);"></div></div>
+          </div>
+          <div class="m-card">
+            <div class="m-row"><span class="m-label">Nice to Have</span><span class="m-val" style="color:var(--emerald);">$480 / $700</span></div>
+            <div class="m-bar-wrap"><div class="m-bar-fill" style="width:68%;background:var(--emerald);"></div></div>
+          </div>
+          <div class="m-card">
+            <div class="m-row"><span class="m-label">For My Future</span><span class="m-val" style="color:var(--violet-lt);">$240 / $500</span></div>
+            <div class="m-bar-wrap"><div class="m-bar-fill" style="width:48%;background:var(--violet);"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="st-info">
+        <div class="st-title">Budget</div>
+        <p class="st-desc">Three simple buckets. Know where money goes even when your income changes every month.</p>
+      </div>
+    </div>
+
+    <!-- Goals -->
+    <div class="screen-tile reveal">
+      <div class="st-phone">
+        <div class="m-wrap">
+          <div class="m-header">My Goals</div>
+          <div class="m-card" style="background:rgba(0,212,170,0.07);border-color:rgba(0,212,170,0.2);margin-bottom:10px;">
+            <div class="m-row"><span style="font-weight:600;font-size:9px;">Emergency Fund</span><span class="m-val" style="color:var(--emerald);font-size:9px;">40%</span></div>
+            <div style="font-size:8px;color:rgba(255,255,255,0.3);margin:4px 0;">$2,400 of $6,000 · ~14 weeks away</div>
+            <div class="m-bar-wrap"><div class="m-bar-fill" style="width:40%;background:var(--emerald);"></div></div>
+          </div>
+          <div class="m-card" style="background:rgba(120,87,255,0.07);border-color:rgba(120,87,255,0.2);margin-bottom:10px;">
+            <div class="m-row"><span style="font-weight:600;font-size:9px;">Tax Reserve</span><span class="m-val" style="color:var(--violet-lt);font-size:9px;">62%</span></div>
+            <div style="font-size:8px;color:rgba(255,255,255,0.3);margin:4px 0;">$1,240 of $2,000</div>
+            <div class="m-bar-wrap"><div class="m-bar-fill" style="width:62%;background:var(--violet);"></div></div>
+          </div>
+          <div class="m-card" style="background:rgba(240,165,0,0.07);border-color:rgba(240,165,0,0.2);">
+            <div class="m-row"><span style="font-weight:600;font-size:9px;">New Laptop</span><span class="m-val" style="color:var(--gold);font-size:9px;">22%</span></div>
+            <div style="font-size:8px;color:rgba(255,255,255,0.3);margin:4px 0;">$330 of $1,500</div>
+            <div class="m-bar-wrap"><div class="m-bar-fill" style="width:22%;background:var(--gold);"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="st-info">
+        <div class="st-title">Goals</div>
+        <p class="st-desc">Save for what matters. Watch progress week by week. Get nudges when you're falling behind.</p>
+      </div>
+    </div>
+
+    <!-- Taxes -->
+    <div class="screen-tile reveal">
+      <div class="st-phone">
+        <div class="m-wrap">
+          <div class="m-header">My Taxes · Florida</div>
+          <div style="font-size:8.5px;color:var(--emerald);margin-bottom:12px;">No state income tax ✓</div>
+          <div class="m-card" style="margin-bottom:7px;">
+            <div class="m-row" style="margin-bottom:4px;"><span class="m-label">Self-employment tax</span><span class="m-val">$4,590</span></div>
+            <div class="m-row" style="margin-bottom:4px;"><span class="m-label">Federal income</span><span class="m-val">$3,200</span></div>
+            <div class="m-row" style="padding-top:5px;border-top:1px solid rgba(255,255,255,0.07);"><span class="m-label">Total estimate</span><span class="m-val" style="color:var(--gold);">$7,790</span></div>
+          </div>
+          <div style="background:rgba(240,165,0,0.1);border:1px solid rgba(240,165,0,0.25);border-radius:8px;padding:9px 11px;">
+            <div style="font-size:8.5px;color:var(--gold);font-weight:600;">⏰ Next: June 16 — $1,100</div>
+            <div style="font-size:8px;color:rgba(255,255,255,0.3);margin-top:2px;">Q2 estimated payment · 89 days</div>
+          </div>
+          <div style="margin-top:8px;background:rgba(0,212,170,0.07);border:1px solid rgba(0,212,170,0.2);border-radius:8px;padding:9px 11px;">
+            <div style="font-size:8.5px;color:var(--emerald);">💡 Top deduction: mileage ($2,100)</div>
+          </div>
+        </div>
+      </div>
+      <div class="st-info">
+        <div class="st-title">Taxes</div>
+        <p class="st-desc">All 50 states. Exact numbers. Never miss a quarterly deadline again.</p>
+      </div>
+    </div>
+
+    <!-- Profile -->
+    <div class="screen-tile reveal">
+      <div class="st-phone">
+        <div class="m-wrap" style="width:160px;text-align:center;">
+          <div style="width:52px;height:52px;background:linear-gradient(135deg,var(--violet),var(--emerald));border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-weight:800;font-size:20px;color:white;">A</div>
+          <div style="font-weight:700;font-size:12px;margin-bottom:3px;">Alex Johnson</div>
+          <div style="font-size:9px;color:rgba(255,255,255,0.4);margin-bottom:14px;">Uber Driver · Florida</div>
+          <div class="m-card" style="text-align:left;margin-bottom:7px;">
+            <div class="m-row" style="margin-bottom:3px;"><span class="m-label">Monthly earnings</span><span class="m-val">$4,800</span></div>
+            <div class="m-row"><span class="m-label">Effective tax rate</span><span class="m-val" style="color:var(--gold);">22%</span></div>
+          </div>
+          <div style="display:flex;gap:6px;justify-content:center;">
+            <span style="font-size:9px;background:rgba(255,255,255,0.06);padding:3px 10px;border-radius:6px;">EN</span>
+            <span style="font-size:9px;background:rgba(120,87,255,0.2);color:var(--violet-lt);padding:3px 10px;border-radius:6px;">ES</span>
+            <span style="font-size:9px;background:rgba(255,255,255,0.06);padding:3px 10px;border-radius:6px;">RU</span>
+          </div>
+        </div>
+      </div>
+      <div class="st-info">
+        <div class="st-title">Profile</div>
+        <p class="st-desc">Your info, your language, your settings — all in one clean place.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════ TESTIMONIALS ════ -->
+<div class="s-wrap dark-bg full">
+  <div style="max-width:1240px;margin:0 auto;">
+    <div class="reveal">
+      <div class="eyebrow">What people say</div>
+      <h2 class="s-title">Real stories.<br>Real relief.</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="tcard reveal">
+        <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="t-quote">"I drove for Uber for 2 years without saving a dollar for taxes. FlowMoney showed me exactly what to set aside after every shift. No more April panic."</p>
+        <div class="t-author">
+          <div class="t-avatar" style="background:var(--violet);">M</div>
+          <div><div class="t-name">Maria G.</div><div class="t-role">Uber driver · Miami, FL</div></div>
+        </div>
+      </div>
+      <div class="tcard reveal">
+        <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="t-quote">"As a freelancer I never knew what I could actually spend. Now I open FlowMoney every morning, see one number, and that's all I need to start my day."</p>
+        <div class="t-author">
+          <div class="t-avatar" style="background:var(--emerald);">A</div>
+          <div><div class="t-name">Alex T.</div><div class="t-role">Upwork freelancer · Austin, TX</div></div>
+        </div>
+      </div>
+      <div class="tcard reveal">
+        <div class="t-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="t-quote">"FlowAI told me I could save $3,500 by tracking business miles. In 10 minutes it saved me more than the whole app costs for an entire year."</p>
+        <div class="t-author">
+          <div class="t-avatar" style="background:var(--gold);">J</div>
+          <div><div class="t-name">Jennifer K.</div><div class="t-role">DoorDash courier · Chicago, IL</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ COMPARE ════ -->
+<div class="s-wrap" id="compare">
+  <div class="reveal">
+    <div class="eyebrow">vs the competition</div>
+    <h2 class="s-title">Why gig workers<br>choose FlowMoney</h2>
+  </div>
+  <div class="compare-box reveal">
+    <div class="cmp-head">
+      <div class="cmp-col">Feature</div>
+      <div class="cmp-col ours">FlowMoney</div>
+      <div class="cmp-col">Copilot</div>
+      <div class="cmp-col">YNAB</div>
+    </div>
+    <div class="cmp-row"><div class="cmp-feat">Built specifically for gig workers</div><div class="ck">✓</div><div class="cx">✗</div><div class="cx">✗</div></div>
+    <div class="cmp-row"><div class="cmp-feat">Self-employment tax calculator</div><div class="ck">✓</div><div class="cx">✗</div><div class="cx">✗</div></div>
+    <div class="cmp-row"><div class="cmp-feat">Tax data for all 50 US states</div><div class="ck">✓</div><div class="cx">✗</div><div class="cx">✗</div></div>
+    <div class="cmp-row"><div class="cmp-feat">AI financial advisor</div><div class="ck">✓</div><div class="cx">✗</div><div class="cx">✗</div></div>
+    <div class="cmp-row"><div class="cmp-feat">Android support</div><div class="ck">✓</div><div class="cx">✗</div><div class="ck">✓</div></div>
+    <div class="cmp-row"><div class="cmp-feat">Spanish & Russian languages</div><div class="ck">✓</div><div class="cx">✗</div><div class="cx">✗</div></div>
+    <div class="cmp-row"><div class="cmp-feat">Monthly price</div><div class="cmp-price-good">$9.99</div><div class="cmp-price-bad">$13.00</div><div class="cmp-price-bad">$15.00</div></div>
+  </div>
+</div>
+
+<!-- ════ PRICING ════ -->
+<div class="s-wrap dark-bg full" id="pricing">
+  <div style="max-width:1240px;margin:0 auto;text-align:center;">
+    <div class="reveal">
+      <div class="eyebrow" style="justify-content:center;">Pricing</div>
+      <h2 class="s-title">Start free.<br>Upgrade when ready.</h2>
+      <p class="s-sub" style="margin:0 auto 0;">No credit card. No pressure. Upgrade when it makes sense for you.</p>
+    </div>
+    <div class="price-cards">
+      <div class="price-card reveal">
+        <div class="price-tier">Free</div>
+        <div class="price-amount"><sup>$</sup>0</div>
+        <div class="price-period">Forever free</div>
+        <ul class="price-list">
+          <li><span class="pi-yes">✓</span> Dashboard & spending overview</li>
+          <li><span class="pi-yes">✓</span> Tax estimate for your state</li>
+          <li><span class="pi-yes">✓</span> Basic budget (3 categories)</li>
+          <li><span class="pi-yes">✓</span> 1 savings goal</li>
+          <li><span class="pi-yes">✓</span> 3 FlowAI questions per week</li>
+          <li><span class="pi-no">—</span> Bank account connection</li>
+          <li><span class="pi-no">—</span> Unlimited AI conversations</li>
+        </ul>
+        <a href="#download" class="price-btn secondary">Download Free</a>
+      </div>
+      <div class="price-card feat reveal">
+        <div class="price-badge">BEST VALUE</div>
+        <div class="price-tier">Pro</div>
+        <div class="price-amount"><sup>$</sup>79</div>
+        <div class="price-period">per year — just $6.58/month</div>
+        <ul class="price-list">
+          <li><span class="pi-yes">✓</span> Everything in Free</li>
+          <li><span class="pi-yes">✓</span> Bank account connection</li>
+          <li><span class="pi-yes">✓</span> Unlimited FlowAI conversations</li>
+          <li><span class="pi-yes">✓</span> Unlimited savings goals</li>
+          <li><span class="pi-yes">✓</span> Full spending history</li>
+          <li><span class="pi-yes">✓</span> Tax deadline reminders</li>
+          <li><span class="pi-yes">✓</span> Priority support</li>
+        </ul>
+        <a href="#download" class="price-btn primary">Get Pro — $79/year</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ FINAL CTA ════ -->
+<section class="cta-section" id="download">
+  <div class="cta-glow"></div>
+  <div class="cta-grid-lines"></div>
+  <div class="cta-inner reveal">
+    <h2 class="cta-h">
+      Your money.<br>
+      Finally <em>clear</em>.
+    </h2>
+    <p class="cta-sub">
+      Join thousands of gig workers who stopped guessing and started knowing.
+      Free to download. No credit card. No catch.
+    </p>
+    <div class="store-row">
+      <a href="#" class="store-btn">
+        <span class="store-ico">🍎</span>
+        <div>
+          <div class="store-sm">Download on the</div>
+          <div class="store-lg">App Store</div>
+        </div>
+      </a>
+      <a href="#" class="store-btn">
+        <span class="store-ico">▶</span>
+        <div>
+          <div class="store-sm">Get it on</div>
+          <div class="store-lg">Google Play</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FOOTER ════ -->
+<footer>
+  <div class="ft-grid">
+    <div>
+      <div class="ft-brand-logo">
+        <div class="nav-logo-mark" style="width:32px;height:32px;font-size:14px;">∞</div>
+        FlowMoney
+      </div>
+      <p class="ft-tagline">Financial clarity for people who work for themselves. Built for the gig economy.</p>
+    </div>
+    <div>
+      <div class="ft-col-h">Product</div>
+      <ul class="ft-col-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#app">App screens</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#download">Download</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="ft-col-h">For</div>
+      <ul class="ft-col-links">
+        <li><a href="#">Uber & Lyft</a></li>
+        <li><a href="#">DoorDash</a></li>
+        <li><a href="#">Upwork & Fiverr</a></li>
+        <li><a href="#">Airbnb hosts</a></li>
+        <li><a href="#">All gig workers</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="ft-col-h">Company</div>
+      <ul class="ft-col-links">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="mailto:support@flowmoney.app">Support</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <div class="ft-copy">© 2026 FlowMoney. All rights reserved.</div>
+    <div class="ft-legal">
+      <a href="privacy.html">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="mailto:support@flowmoney.app">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.07, rootMargin: '0px 0px -44px 0px' });
+
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  // stagger siblings
+  const parent = el.parentElement;
+  if (parent) {
+    const sibs = [...parent.querySelectorAll(':scope > .reveal')];
+    const idx = sibs.indexOf(el);
+    if (idx > 0) el.style.transitionDelay = `${idx * 0.09}s`;
+  }
+  obs.observe(el);
+});
+
+// ── Animated counter for stat numbers
+function animateCounter(el, target, prefix = '', suffix = '') {
+  const duration = 1800;
+  const start = performance.now();
+  const isDecimal = String(target).includes('.');
+
+  function update(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const val = eased * target;
+    el.textContent = prefix + (isDecimal ? val.toFixed(1) : Math.round(val).toLocaleString()) + suffix;
+    if (progress < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+
+const statObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    const txt = el.dataset.target;
+    if (txt) animateCounter(el, parseFloat(txt.replace(/[^0-9.]/g, '')), el.dataset.prefix || '', el.dataset.suffix || '');
+    statObs.unobserve(el);
+  });
+}, { threshold: 0.5 });
+
+// No data attrs set — counters fire on first stat-band reveal
+
+// ── Smooth nav shadow on scroll
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('.nav');
+  if (window.scrollY > 20) {
+    nav.style.boxShadow = '0 8px 40px rgba(0,0,0,0.4)';
+  } else {
+    nav.style.boxShadow = 'none';
+  }
+}, { passive: true });
+</script>
+</body>
+</html>

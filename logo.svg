@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 140" fill="none">
+  <defs>
+    <linearGradient id="pg" x1="20" y1="15" x2="160" y2="135" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#C084FC"/>
+      <stop offset="0.55" stop-color="#9333EA" stop-opacity="0.75"/>
+      <stop offset="1" stop-color="#6D28D9" stop-opacity="0.4"/>
+    </linearGradient>
+    <linearGradient id="tg" x1="280" y1="15" x2="140" y2="135" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#34EEB0"/>
+      <stop offset="0.5" stop-color="#10C990"/>
+      <stop offset="1" stop-color="#065F46"/>
+    </linearGradient>
+    <clipPath id="bot">
+      <rect x="124" y="69" width="52" height="36"/>
+    </clipPath>
+  </defs>
+  <!-- Teal right loop — bottom layer -->
+  <path d="M 142,52 C 150,27 176,5 212,7 C 257,9 287,42 287,70 C 287,98 257,131 212,133 C 176,135 150,113 158,88"
+        stroke="url(#tg)" stroke-width="27" stroke-linecap="round"/>
+  <!-- Purple left loop — middle layer (purple over teal at top crossing) -->
+  <path d="M 158,52 C 150,27 124,5 88,7 C 43,9 13,42 13,70 C 13,98 43,131 88,133 C 124,135 150,113 142,88"
+        stroke="url(#pg)" stroke-width="27" stroke-linecap="round"/>
+  <!-- Teal right loop clipped — top layer at bottom crossing (teal over purple) -->
+  <path d="M 142,52 C 150,27 176,5 212,7 C 257,9 287,42 287,70 C 287,98 257,131 212,133 C 176,135 150,113 158,88"
+        stroke="url(#tg)" stroke-width="27" stroke-linecap="round" clip-path="url(#bot)"/>
+</svg>

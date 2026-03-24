@@ -58,11 +58,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;
   background:rgba(14,11,22,.9);backdrop-filter:blur(20px);
   border-bottom:1px solid var(--line);}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
-.logo-mark{width:36px;height:36px;border-radius:10px;
-  background:linear-gradient(135deg,var(--v),#4f35c4);
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 18px rgba(124,92,252,.45);}
-.logo-mark svg{width:20px;height:20px;}
+.logo-mark{width:54px;height:28px;display:flex;align-items:center;}
+.logo-mark svg{width:54px;height:28px;}
 .logo-name{font-size:18px;font-weight:900;color:var(--text);letter-spacing:-.3px;}
 .nav-r{display:flex;align-items:center;gap:32px;}
 .nav-r a{color:var(--fog);text-decoration:none;font-size:14px;font-weight:700;transition:color .2s;}
@@ -550,9 +547,28 @@ footer{padding:64px 0 44px;border-top:1px solid var(--line);}
 <nav>
   <a href="#" class="logo">
     <div class="logo-mark">
-      <svg viewBox="0 0 24 24" fill="none">
-        <path d="M3 12Q6 5 10 11Q14 17 18 9" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M3 16Q6 9 10 15Q14 21 18 13" stroke="rgba(255,255,255,.45)" stroke-width="2" stroke-linecap="round"/>
+      <svg viewBox="0 0 300 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="nav-pg" x1="20" y1="15" x2="160" y2="135" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#C084FC"/>
+            <stop offset="0.55" stop-color="#9333EA" stop-opacity="0.75"/>
+            <stop offset="1" stop-color="#6D28D9" stop-opacity="0.4"/>
+          </linearGradient>
+          <linearGradient id="nav-tg" x1="280" y1="15" x2="140" y2="135" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#34EEB0"/>
+            <stop offset="0.5" stop-color="#10C990"/>
+            <stop offset="1" stop-color="#065F46"/>
+          </linearGradient>
+          <clipPath id="nav-bot">
+            <rect x="124" y="69" width="52" height="36"/>
+          </clipPath>
+        </defs>
+        <path d="M 142,52 C 150,27 176,5 212,7 C 257,9 287,42 287,70 C 287,98 257,131 212,133 C 176,135 150,113 158,88"
+              stroke="url(#nav-tg)" stroke-width="27" stroke-linecap="round"/>
+        <path d="M 158,52 C 150,27 124,5 88,7 C 43,9 13,42 13,70 C 13,98 43,131 88,133 C 124,135 150,113 142,88"
+              stroke="url(#nav-pg)" stroke-width="27" stroke-linecap="round"/>
+        <path d="M 142,52 C 150,27 176,5 212,7 C 257,9 287,42 287,70 C 287,98 257,131 212,133 C 176,135 150,113 158,88"
+              stroke="url(#nav-tg)" stroke-width="27" stroke-linecap="round" clip-path="url(#nav-bot)"/>
       </svg>
     </div>
     <span class="logo-name">FlowMoney</span>

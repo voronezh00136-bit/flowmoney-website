@@ -100,6 +100,19 @@ section{position:relative;}
   transition:background .2s;}
 .btn-ghost:hover{background:rgba(255,255,255,.11);}
 
+/* Countdown */
+.launch-countdown{display:flex;align-items:center;gap:20px;
+  background:rgba(124,92,252,0.08);border:1px solid rgba(124,92,252,0.25);
+  border-radius:16px;padding:14px 22px;margin-bottom:22px;
+  backdrop-filter:blur(8px);width:fit-content;}
+.lc-label{font-size:13px;font-weight:600;color:var(--v2);letter-spacing:.04em;white-space:nowrap;}
+.lc-boxes{display:flex;align-items:center;gap:6px;}
+.lc-unit{display:flex;flex-direction:column;align-items:center;gap:2px;
+  background:rgba(124,92,252,0.15);border:1px solid rgba(124,92,252,0.3);
+  border-radius:10px;padding:8px 12px;min-width:52px;}
+.lc-num{font-size:22px;font-weight:800;color:#fff;line-height:1;font-variant-numeric:tabular-nums;}
+.lc-sub{font-size:10px;color:var(--fog);font-weight:500;letter-spacing:.08em;text-transform:uppercase;}
+.lc-sep{font-size:20px;font-weight:700;color:var(--v2);line-height:1;margin-bottom:10px;}
 .hero-proof{display:flex;align-items:center;gap:14px;}
 .proof-faces{display:flex;}
 .pface{width:36px;height:36px;border-radius:50%;border:2.5px solid var(--bg);
@@ -503,6 +516,20 @@ footer{padding:64px 0 44px;border-top:1px solid var(--line);}
         <div class="hero-loss">
           &#9888;&#65039; <span>The average gig worker pays <strong>$3,000–$8,000 more in taxes</strong> than they need to. Every year.</span>
         </div>
+        <!-- Countdown -->
+        <div class="launch-countdown">
+          <div class="lc-label">🚀 App launches in</div>
+          <div class="lc-boxes">
+            <div class="lc-unit"><span class="lc-num" id="cd-days">--</span><span class="lc-sub">days</span></div>
+            <div class="lc-sep">:</div>
+            <div class="lc-unit"><span class="lc-num" id="cd-hours">--</span><span class="lc-sub">hrs</span></div>
+            <div class="lc-sep">:</div>
+            <div class="lc-unit"><span class="lc-num" id="cd-mins">--</span><span class="lc-sub">min</span></div>
+            <div class="lc-sep">:</div>
+            <div class="lc-unit"><span class="lc-num" id="cd-secs">--</span><span class="lc-sub">sec</span></div>
+          </div>
+        </div>
+
         <div class="hero-ctas">
           <a href="#" class="btn-hero">&#8659;&nbsp; Download Free — iOS &amp; Android</a>
           <a href="#who" class="btn-ghost">See if it's for me &rarr;</a>
@@ -1046,6 +1073,34 @@ document.querySelectorAll('.r').forEach((el,i) => {
   el.style.transitionDelay = (i % 5) * 0.07 + 's';
   io.observe(el);
 });
+</script>
+<script>
+// Countdown to April 4, 2026
+(function(){
+  const target = new Date('2026-04-04T00:00:00');
+  function pad(n){ return String(n).padStart(2,'0'); }
+  function tick(){
+    const now = new Date();
+    const diff = target - now;
+    if(diff <= 0){
+      document.getElementById('cd-days').textContent='00';
+      document.getElementById('cd-hours').textContent='00';
+      document.getElementById('cd-mins').textContent='00';
+      document.getElementById('cd-secs').textContent='00';
+      return;
+    }
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000)  / 60000);
+    const secs  = Math.floor((diff % 60000)    / 1000);
+    document.getElementById('cd-days').textContent  = pad(days);
+    document.getElementById('cd-hours').textContent = pad(hours);
+    document.getElementById('cd-mins').textContent  = pad(mins);
+    document.getElementById('cd-secs').textContent  = pad(secs);
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
 </script>
 </body>
 </html>

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0e0b16"/>
+      <stop offset="100%" stop-color="#1e1838"/>
+    </linearGradient>
+    <linearGradient id="vg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c5cfc"/>
+      <stop offset="100%" stop-color="#a040ff"/>
+    </linearGradient>
+    <linearGradient id="tg" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="60%" stop-color="#c4b5fd"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Glow circles -->
+  <circle cx="900" cy="150" r="300" fill="#7c5cfc" opacity="0.08"/>
+  <circle cx="200" cy="500" r="200" fill="#00d4a8" opacity="0.05"/>
+
+  <!-- Logo mark -->
+  <rect x="80" y="80" width="80" height="80" rx="22" fill="url(#vg)"/>
+  <text x="120" y="140" font-family="Georgia,serif" font-size="52" font-weight="bold"
+        text-anchor="middle" fill="white">∞</text>
+
+  <!-- Logo text -->
+  <text x="180" y="138" font-family="Arial,sans-serif" font-size="36" font-weight="700"
+        fill="white">FlowMoney</text>
+
+  <!-- Badge -->
+  <rect x="80" y="200" width="240" height="36" rx="18"
+        fill="none" stroke="#7c5cfc" stroke-width="1.5" opacity="0.6"/>
+  <text x="200" y="224" font-family="Arial,sans-serif" font-size="14" font-weight="600"
+        text-anchor="middle" fill="#a78bfa" letter-spacing="2">FOR GIG WORKERS</text>
+
+  <!-- Main headline -->
+  <text x="80" y="320" font-family="Arial,sans-serif" font-size="72" font-weight="800"
+        fill="url(#tg)">Your money.</text>
+  <text x="80" y="406" font-family="Arial,sans-serif" font-size="72" font-weight="800"
+        fill="white">Finally working</text>
+  <text x="80" y="492" font-family="Arial,sans-serif" font-size="72" font-weight="800"
+        fill="#7c5cfc">as hard as you do.</text>
+
+  <!-- Sub text -->
+  <text x="80" y="562" font-family="Arial,sans-serif" font-size="24" fill="#b8b0d8">
+    Tax tracking · Income insights · AI financial coach
+  </text>
+
+  <!-- Right side card -->
+  <rect x="820" y="200" width="300" height="200" rx="20"
+        fill="#1c1630" stroke="#7c5cfc" stroke-width="1" opacity="0.9"/>
+  <text x="970" y="250" font-family="Arial,sans-serif" font-size="14" fill="#7068a0"
+        text-anchor="middle">You can spend today</text>
+  <text x="970" y="310" font-family="Arial,sans-serif" font-size="52" font-weight="800"
+        text-anchor="middle" fill="white">$847</text>
+  <text x="970" y="345" font-family="Arial,sans-serif" font-size="13" fill="#00d4a8"
+        text-anchor="middle">▲ Taxes already set aside ✓</text>
+
+  <!-- URL -->
+  <text x="1120" y="590" font-family="Arial,sans-serif" font-size="18" fill="#7068a0"
+        text-anchor="end">tryflowmoney.com</text>
+</svg>

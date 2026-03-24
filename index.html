@@ -4,6 +4,33 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FlowMoney — Built for the way you actually work</title>
+
+<!-- SEO -->
+<meta name="description" content="FlowMoney automatically calculates what you can spend after taxes, bills and savings — built for gig workers, freelancers and the self-employed. Free for iOS & Android.">
+<meta name="keywords" content="gig worker finance app, self employed tax calculator, freelancer budget app, uber driver finance, 1099 tax tracker">
+<meta name="author" content="FlowMoney">
+<link rel="canonical" href="https://tryflowmoney.com/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tryflowmoney.com/">
+<meta property="og:title" content="FlowMoney — Your money, finally working as hard as you do">
+<meta property="og:description" content="Track income from every gig, set aside taxes automatically, and know exactly what you can spend. Free for iOS & Android.">
+<meta property="og:image" content="https://tryflowmoney.com/og-image.svg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="FlowMoney">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://tryflowmoney.com/">
+<meta name="twitter:title" content="FlowMoney — Your money, finally working as hard as you do">
+<meta name="twitter:description" content="Track income from every gig, set aside taxes automatically, and know exactly what you can spend.">
+<meta name="twitter:image" content="https://tryflowmoney.com/og-image.svg">
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -485,7 +512,36 @@ footer{padding:64px 0 44px;border-top:1px solid var(--line);}
   .price-hook{flex-direction:column;text-align:center;}
   .hero-ctas{flex-direction:column;}
   .btn-hero,.btn-ghost{text-align:center;justify-content:center;}
+  .store-btns{justify-content:center;}
+  .waitlist-form{flex-direction:column;}
 }
+
+/* Waitlist section */
+.waitlist-section{padding:80px 0;background:linear-gradient(180deg,transparent,rgba(124,92,252,0.05) 50%,transparent);}
+.waitlist-inner{max-width:620px;margin:0 auto;text-align:center;padding:0 24px;}
+.waitlist-badge{display:inline-flex;align-items:center;gap:8px;
+  background:rgba(0,212,168,0.1);border:1px solid rgba(0,212,168,0.3);
+  border-radius:30px;padding:6px 16px;font-size:12px;font-weight:600;
+  color:var(--g);letter-spacing:.08em;text-transform:uppercase;margin-bottom:20px;}
+.waitlist-title{font-size:clamp(28px,4vw,42px);font-weight:800;
+  letter-spacing:-.5px;margin-bottom:12px;line-height:1.15;}
+.waitlist-sub{font-size:16px;color:var(--smoke);margin-bottom:32px;}
+.waitlist-form{display:flex;gap:10px;max-width:480px;margin:0 auto 16px;}
+.waitlist-input{flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);
+  border-radius:14px;padding:14px 20px;font-size:15px;color:var(--text);
+  font-family:'Outfit',sans-serif;outline:none;transition:border-color .2s;}
+.waitlist-input:focus{border-color:rgba(124,92,252,0.6);}
+.waitlist-input::placeholder{color:var(--fog);}
+.waitlist-btn{background:linear-gradient(135deg,var(--v),#a040ff);color:#fff;
+  border:none;border-radius:14px;padding:14px 28px;font-size:15px;font-weight:700;
+  font-family:'Outfit',sans-serif;cursor:pointer;white-space:nowrap;
+  transition:transform .2s,box-shadow .2s;}
+.waitlist-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(124,92,252,.5);}
+.waitlist-btn:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+.waitlist-msg{font-size:14px;height:20px;transition:color .3s;}
+.waitlist-msg.ok{color:var(--g);}
+.waitlist-msg.err{color:var(--rose);}
+.waitlist-proof{font-size:13px;color:var(--fog);margin-top:14px;}
 </style>
 </head>
 <body>
@@ -1084,6 +1140,22 @@ footer{padding:64px 0 44px;border-top:1px solid var(--line);}
   </div>
 </section>
 
+<!-- WAITLIST -->
+<section class="waitlist-section" id="waitlist">
+  <div class="waitlist-inner">
+    <div class="waitlist-badge">🔔 Early access</div>
+    <h2 class="waitlist-title">Be first to know<br>when we launch</h2>
+    <p class="waitlist-sub">April 4, 2026 — drop your email and we'll notify you the moment FlowMoney goes live. No spam, ever.</p>
+    <form class="waitlist-form" id="waitlistForm" onsubmit="submitWaitlist(event)">
+      <input class="waitlist-input" id="waitlistEmail" type="email"
+        placeholder="your@email.com" autocomplete="email" required>
+      <button class="waitlist-btn" id="waitlistBtn" type="submit">Notify me</button>
+    </form>
+    <div class="waitlist-msg" id="waitlistMsg"></div>
+    <p class="waitlist-proof">🔒 No spam. Unsubscribe anytime. We respect your privacy.</p>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="wrap">
@@ -1097,7 +1169,7 @@ footer{padding:64px 0 44px;border-top:1px solid var(--line);}
       </div>
       <div class="fcol"><h4>Product</h4><ul><li><a href="#features">Features</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#">Download on App Store</a></li><li><a href="#">Get it on Google Play</a></li></ul></div>
       <div class="fcol"><h4>Company</h4><ul><li><a href="#">About</a></li><li><a href="#">Blog</a></li><li><a href="#">Contact</a></li></ul></div>
-      <div class="fcol"><h4>Legal</h4><ul><li><a href="privacy.html">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li></ul></div>
+      <div class="fcol"><h4>Legal</h4><ul><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms of Service</a></li></ul></div>
     </div>
     <div class="foot-btm">
       <span>&copy; 2026 FlowMoney. All rights reserved.</span>
@@ -1116,6 +1188,42 @@ document.querySelectorAll('.r').forEach((el,i) => {
 });
 </script>
 <script>
+// Waitlist form
+async function submitWaitlist(e) {
+  e.preventDefault();
+  const email = document.getElementById('waitlistEmail').value.trim();
+  const btn   = document.getElementById('waitlistBtn');
+  const msg   = document.getElementById('waitlistMsg');
+  if (!email) return;
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  msg.className = 'waitlist-msg';
+  msg.textContent = '';
+  try {
+    const res = await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+    const data = await res.json();
+    if (res.ok && data.success) {
+      msg.className = 'waitlist-msg ok';
+      msg.textContent = data.already
+        ? '✓ You\'re already on the list!'
+        : '🎉 You\'re in! We\'ll notify you on April 4.';
+      document.getElementById('waitlistForm').reset();
+    } else {
+      throw new Error(data.error || 'Error');
+    }
+  } catch {
+    msg.className = 'waitlist-msg err';
+    msg.textContent = 'Something went wrong. Try again.';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Notify me';
+  }
+}
+
 // Countdown to April 4, 2026
 (function(){
   const target = new Date('2026-04-04T00:00:00');

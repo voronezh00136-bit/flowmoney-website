@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service — FlowMoney</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0e0b16;--bg2:#16112a;--bg3:#1e1838;
+  --card:#1c1630;--v:#7c5cfc;--v2:#a78bfa;--v3:#c4b5fd;
+  --g:#00d4a8;--text:#f0ecff;--smoke:#b8b0d8;--fog:#7068a0;
+  --line:rgba(255,255,255,0.07);--red:#f87171;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;overflow-x:hidden;line-height:1.65;}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;opacity:.35;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:16px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(14,11,22,0.85);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--line);}
+.logo{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:700;
+  color:var(--text);text-decoration:none;letter-spacing:-.3px;}
+.logo-mark{width:34px;height:34px;border-radius:10px;
+  background:linear-gradient(135deg,var(--v),#a040ff);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:#fff;font-weight:800;}
+.nav-back{font-size:14px;color:var(--fog);text-decoration:none;transition:color .2s;}
+.nav-back:hover{color:var(--text);}
+.hero{padding:140px 48px 72px;max-width:860px;margin:0 auto;border-bottom:1px solid var(--line);}
+.badge{display:inline-block;background:rgba(124,92,252,0.12);border:1px solid rgba(124,92,252,0.3);
+  border-radius:30px;padding:5px 16px;font-size:12px;font-weight:600;
+  color:var(--v2);letter-spacing:.08em;text-transform:uppercase;margin-bottom:24px;}
+.hero h1{font-size:clamp(32px,5vw,54px);font-weight:800;
+  background:linear-gradient(135deg,#fff 30%,var(--v3));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;margin-bottom:14px;letter-spacing:-.5px;}
+.hero-meta{font-size:14px;color:var(--fog);}
+.wrap{max-width:860px;margin:0 auto;padding:64px 48px 100px;}
+.callout{background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.25);
+  border-radius:16px;padding:20px 24px;margin-bottom:40px;}
+.callout p{font-size:15px;color:#fca5a5;margin:0;}
+section{margin-bottom:52px;}
+h2{font-size:20px;font-weight:700;color:var(--text);margin-bottom:16px;padding-bottom:10px;
+  border-bottom:1px solid var(--line);}
+p{font-size:15px;color:var(--smoke);margin-bottom:14px;}
+ul{list-style:none;margin-bottom:14px;}
+ul li{font-size:15px;color:var(--smoke);padding:5px 0 5px 20px;position:relative;}
+ul li::before{content:'·';position:absolute;left:6px;color:var(--v2);font-size:18px;line-height:1.1;}
+strong{color:var(--text);font-weight:600;}
+a{color:var(--v2);text-decoration:none;}
+a:hover{color:var(--v3);}
+.contact-btn{display:inline-flex;align-items:center;gap:8px;
+  background:rgba(124,92,252,0.12);border:1px solid rgba(124,92,252,0.3);
+  border-radius:12px;padding:12px 22px;font-size:14px;font-weight:600;
+  color:var(--v2);text-decoration:none;transition:background .2s;margin-top:6px;}
+.contact-btn:hover{background:rgba(124,92,252,0.22);color:#fff;}
+footer{padding:40px 48px;border-top:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.ft-copy{font-size:13px;color:var(--fog);}
+.ft-links{display:flex;gap:20px;}
+.ft-links a{font-size:13px;color:var(--fog);transition:color .2s;}
+.ft-links a:hover{color:var(--text);}
+@media(max-width:640px){
+  nav{padding:14px 20px;}
+  .hero{padding:110px 20px 52px;}
+  .wrap{padding:40px 20px 80px;}
+  footer{padding:28px 20px;flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">
+    <div class="logo-mark">∞</div>
+    FlowMoney
+  </a>
+  <a href="index.html" class="nav-back">← Back to home</a>
+</nav>
+
+<div class="hero">
+  <div class="badge">Legal</div>
+  <h1>Terms of Service</h1>
+  <p class="hero-meta">Last updated: March 2026 &nbsp;·&nbsp; Effective: April 4, 2026</p>
+</div>
+
+<div class="wrap">
+
+  <div class="callout">
+    <p><strong>Please read these terms carefully.</strong> By downloading or using FlowMoney, you agree to these Terms. If you disagree, please do not use the app.</p>
+  </div>
+
+  <section>
+    <h2>1. Acceptance of Terms</h2>
+    <p>These Terms of Service ("Terms") govern your access to and use of FlowMoney (the "Service"), including our mobile application and website at tryflowmoney.com. By creating an account or using the Service, you agree to be bound by these Terms and our <a href="privacy.html">Privacy Policy</a>.</p>
+    <p>You must be at least 13 years old to use FlowMoney. By using the Service, you represent that you meet this requirement.</p>
+  </section>
+
+  <section>
+    <h2>2. Description of Service</h2>
+    <p>FlowMoney is a personal finance management application designed for self-employed individuals and gig workers in the United States. The Service provides:</p>
+    <ul>
+      <li>Income and expense tracking</li>
+      <li>Estimated self-employment tax calculations</li>
+      <li>Budget planning and savings goals</li>
+      <li>AI-powered financial insights (FlowAI)</li>
+      <li>Optional bank account connection via Teller</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>3. Not Financial or Tax Advice</h2>
+    <p><strong>FlowMoney does not provide financial, tax, legal, or accounting advice.</strong> All tax estimates, financial projections, and insights provided by the app are for <strong>informational and educational purposes only</strong>.</p>
+    <ul>
+      <li>Tax calculations are estimates based on publicly available IRS data and may not reflect your actual tax liability</li>
+      <li>FlowAI responses are AI-generated and should not be relied upon as professional financial advice</li>
+      <li>Always consult a licensed CPA, tax professional, or financial advisor for your specific situation</li>
+      <li>FlowMoney is not liable for any financial decisions made based on information provided by the app</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>4. User Accounts</h2>
+    <p>To use FlowMoney, you must create an account. You agree to:</p>
+    <ul>
+      <li>Provide accurate and complete information</li>
+      <li>Keep your login credentials secure and confidential</li>
+      <li>Notify us immediately of any unauthorized account access</li>
+      <li>Be responsible for all activity under your account</li>
+    </ul>
+    <p>We reserve the right to suspend or terminate accounts that violate these Terms.</p>
+  </section>
+
+  <section>
+    <h2>5. Subscriptions and Payments</h2>
+    <p>FlowMoney offers both a free tier and a paid Pro subscription ("FlowMoney Pro").</p>
+    <ul>
+      <li><strong>Free plan:</strong> Available at no cost with limited features</li>
+      <li><strong>Pro plan:</strong> Billed monthly or annually via Apple App Store or Google Play</li>
+      <li><strong>Billing:</strong> Subscriptions automatically renew unless cancelled at least 24 hours before the renewal date</li>
+      <li><strong>Refunds:</strong> Managed by Apple or Google according to their respective refund policies</li>
+      <li><strong>Price changes:</strong> We will notify you of price changes at least 30 days in advance</li>
+    </ul>
+    <p>To cancel a subscription, go to your device's App Store or Google Play subscription settings.</p>
+  </section>
+
+  <section>
+    <h2>6. Bank Account Connection</h2>
+    <p>FlowMoney offers optional bank account connection through Teller, a third-party service. By connecting your bank account, you acknowledge that:</p>
+    <ul>
+      <li>FlowMoney receives read-only access to your transaction data</li>
+      <li>We never store your bank credentials</li>
+      <li>You can disconnect your bank at any time from the app</li>
+      <li>Teller's own terms of service and privacy policy apply to the connection</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>7. Acceptable Use</h2>
+    <p>You agree not to use FlowMoney to:</p>
+    <ul>
+      <li>Violate any applicable laws or regulations</li>
+      <li>Attempt to hack, reverse engineer, or compromise the security of the app</li>
+      <li>Share your account with others or create multiple accounts for abuse</li>
+      <li>Use the Service for any purpose other than personal financial management</li>
+      <li>Submit false or fraudulent financial information</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>8. Intellectual Property</h2>
+    <p>All content, features, and functionality of FlowMoney — including the design, logo, text, graphics, and software — are owned by FlowMoney and protected by applicable intellectual property laws.</p>
+    <p>You are granted a limited, non-exclusive, non-transferable license to use the app for personal, non-commercial purposes in accordance with these Terms.</p>
+  </section>
+
+  <section>
+    <h2>9. Disclaimer of Warranties</h2>
+    <p>FlowMoney is provided <strong>"as is"</strong> and <strong>"as available"</strong> without warranties of any kind, either express or implied. We do not warrant that:</p>
+    <ul>
+      <li>The Service will be uninterrupted, error-free, or completely secure</li>
+      <li>Tax estimates or financial calculations will be accurate or complete</li>
+      <li>The Service will meet your specific requirements</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>10. Limitation of Liability</h2>
+    <p>To the fullest extent permitted by law, FlowMoney shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the Service, including but not limited to:</p>
+    <ul>
+      <li>Financial losses based on app estimates or AI suggestions</li>
+      <li>Tax penalties or underpayments</li>
+      <li>Data loss or unauthorized access</li>
+      <li>Service interruptions</li>
+    </ul>
+    <p>Our total liability to you shall not exceed the amount you paid us in the 12 months preceding the claim.</p>
+  </section>
+
+  <section>
+    <h2>11. Termination</h2>
+    <p>You may delete your account at any time by contacting us at <a href="mailto:support@flowmoney.app">support@flowmoney.app</a>. We may terminate or suspend your account at our discretion if you violate these Terms.</p>
+    <p>Upon termination, your right to use the Service ceases immediately. Provisions that should survive termination (including Sections 3, 8, 9, 10) will remain in effect.</p>
+  </section>
+
+  <section>
+    <h2>12. Changes to Terms</h2>
+    <p>We may update these Terms from time to time. Significant changes will be communicated via in-app notification or email at least 14 days before they take effect. Continued use of the Service after changes constitutes acceptance of the revised Terms.</p>
+  </section>
+
+  <section>
+    <h2>13. Governing Law</h2>
+    <p>These Terms are governed by the laws of the United States. Any disputes arising from these Terms or the Service will be resolved through binding arbitration, except where prohibited by law.</p>
+  </section>
+
+  <section>
+    <h2>14. Contact</h2>
+    <p>Questions about these Terms? Contact us:</p>
+    <a href="mailto:legal@flowmoney.app" class="contact-btn">✉ legal@flowmoney.app</a>
+  </section>
+
+</div>
+
+<footer>
+  <div class="ft-copy">© 2026 FlowMoney. All rights reserved.</div>
+  <div class="ft-links">
+    <a href="index.html">Home</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="mailto:support@flowmoney.app">Support</a>
+  </div>
+</footer>
+
+</body>
+</html>

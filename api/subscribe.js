@@ -1,5 +1,7 @@
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  const ALLOWED_ORIGINS = ['https://tryflowmoney.com', 'https://www.tryflowmoney.com', 'https://flowmoney-app.vercel.app'];
+  const origin = req.headers.origin || '';
+  res.setHeader('Access-Control-Allow-Origin', ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0]);
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
@@ -48,8 +50,7 @@ export default async function handler(req, res) {
       return res.status(200).json({ success: true, already: true });
     }
 
-    const text = await response.text();
-    console.error('Supabase error:', response.status, text);
+    console.error('Supabase error:', response.status); // no body — avoid leaking schema info
     return res.status(500).json({ error: 'Could not save email' });
   } catch (err) {
     console.error('Fetch error:', err);
